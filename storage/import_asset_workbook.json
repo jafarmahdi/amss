@@ -1,0 +1,2234 @@
+{
+  "source": "/Users/jafaralhassani/Library/CloudStorage/OneDrive-AlNahala/IT HQ/ASSET (1).xlsx",
+  "branch": "IT",
+  "categories": [
+    "?",
+    "All in one",
+    "Camera",
+    "Computer",
+    "HHD",
+    "Microtik CRS326-24G",
+    "Mouse and keyboard",
+    "NVR",
+    "Network Device",
+    "Network security",
+    "Out Of Support",
+    "POE switch",
+    "Printer",
+    "Printer color",
+    "Scanner",
+    "Switch",
+    "fingerprint",
+    "ink",
+    "laptop",
+    "poe switch",
+    "router",
+    "stands"
+  ],
+  "employees": [
+    {
+      "name": "jafar Mahdi",
+      "department": "HQ-IT"
+    },
+    {
+      "name": "Mustafa Jamal",
+      "department": "IT"
+    },
+    {
+      "name": "محمد الجنابي + علي عبدالوهاب",
+      "department": "HQ-Accountants"
+    },
+    {
+      "name": "محمد حمدي + احمد طلعت",
+      "department": "HQ-Accountants"
+    },
+    {
+      "name": "Mohammed.Hamdi",
+      "department": "HQ-Accountants"
+    },
+    {
+      "name": "Mohammed.janabe",
+      "department": "HQ-Accountants"
+    },
+    {
+      "name": "Hassan Sadiq",
+      "department": "HQ-Accountants"
+    },
+    {
+      "name": "Mohammed Nasser",
+      "department": "HQ-Accountants"
+    },
+    {
+      "name": "Mohanad Mazin",
+      "department": "HQ-Accountants"
+    },
+    {
+      "name": "Haider.aslan",
+      "department": "HQ-Luks"
+    },
+    {
+      "name": "Noor Murad",
+      "department": "HQ-Luks"
+    },
+    {
+      "name": "ammar",
+      "department": "HQ-Luks"
+    },
+    {
+      "name": "Ali Abdulsalam",
+      "department": "HQ-Luks"
+    },
+    {
+      "name": "Rand Hassan",
+      "department": "HQ-Luks"
+    },
+    {
+      "name": "Ali Badran",
+      "department": "HQ-Law"
+    },
+    {
+      "name": "Abdulqadir Hisham",
+      "department": "HQ-Law"
+    },
+    {
+      "name": "Yahya Hussin",
+      "department": "HQ-Law"
+    },
+    {
+      "name": "Ahmed Shehab",
+      "department": "HQ-Project"
+    },
+    {
+      "name": "Sulyman",
+      "department": "HQ-Project"
+    },
+    {
+      "name": "Waleed Awad",
+      "department": "HQ"
+    },
+    {
+      "name": "Yousif atheer",
+      "department": "Printer"
+    },
+    {
+      "name": "Mustafa Abbas",
+      "department": "Printer"
+    },
+    {
+      "name": "Jamal",
+      "department": "Printer"
+    },
+    {
+      "name": "Hussein Abbas Hassan",
+      "department": "Um Qasser"
+    },
+    {
+      "name": "Zain Al-Abidin Mustafa Safi",
+      "department": "Um Qasser"
+    },
+    {
+      "name": "Ahmed Falah Abdullah",
+      "department": "Um Qasser"
+    },
+    {
+      "name": "Jaber Ibrahim Jaber",
+      "department": "Um Qasser"
+    },
+    {
+      "name": "Sajad Yusuf Yaqub",
+      "department": "Um Qasser"
+    },
+    {
+      "name": "Ali Nasir Abdu-Alaa",
+      "department": "Safwan"
+    },
+    {
+      "name": "Hisham Ayad Rashed",
+      "department": "Safwan"
+    },
+    {
+      "name": "Yusuf Fahd Jabbar",
+      "department": "Safwan"
+    },
+    {
+      "name": "Hussein Tulab Hammed",
+      "department": "Safwan"
+    },
+    {
+      "name": "Mustafa Abdul-Saeed",
+      "department": "Safwan"
+    },
+    {
+      "name": "Mustafa Kameel Mouter",
+      "department": "Trebeel"
+    },
+    {
+      "name": "Buzz Ameer",
+      "department": "Trebeel"
+    },
+    {
+      "name": "Roukan Satar Saleh",
+      "department": "Trebeel"
+    },
+    {
+      "name": "Amer Mahmoud Shaker",
+      "department": "Trebeel"
+    },
+    {
+      "name": "Yasser Amer Khaled",
+      "department": "Trebeel"
+    },
+    {
+      "name": "Talha Ziad Tariq",
+      "department": "Trebeel"
+    },
+    {
+      "name": "Ahmed Khaled Abdurahman",
+      "department": "Trebeel"
+    },
+    {
+      "name": "Tariq Ziad",
+      "department": "Trebeel"
+    },
+    {
+      "name": "Omar Muhammad Khalil",
+      "department": "Arar"
+    },
+    {
+      "name": "Muhammad Raed Muhammad",
+      "department": "Arar"
+    },
+    {
+      "name": "yousif Hatem",
+      "department": "kirkuk"
+    },
+    {
+      "name": "Ahmed read",
+      "department": "kirkuk"
+    },
+    {
+      "name": "Nabeel Maron",
+      "department": "Turkiye"
+    },
+    {
+      "name": "Moustafu",
+      "department": "Turkiye"
+    }
+  ],
+  "assets": [
+    {
+      "name": "Asus ROC",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "jafar Mahdi",
+      "notes": "Source: COMPUTER sheet | Office: HQ-IT | 365 License: True/IT | Kaspersky: 1 | UPS: N/A | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "PREDATOR- PHN16-72",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Mustafa Jamal",
+      "notes": "Source: COMPUTER sheet | Office: IT | 365 License: True/IT | Kaspersky: 1 | UPS: N/A | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "HQ-LB-ACC1",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "محمد الجنابي + علي عبدالوهاب",
+      "notes": "Source: COMPUTER sheet | Office: HQ-Accountants | 365 License: 1 | Kaspersky: N/A | UPS: 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "HQ-ALL-IN-ONE-M",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "محمد حمدي + احمد طلعت",
+      "notes": "Source: COMPUTER sheet | Office: HQ-Accountants | 365 License: 1 | Kaspersky: N/A | UPS: 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "LB-CEO-MH",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Mohammed.Hamdi",
+      "notes": "Source: COMPUTER sheet | Office: HQ-Accountants | 365 License: 1 | Kaspersky: 1 | UPS: 1 | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Lenovo",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Mohammed.janabe",
+      "notes": "Source: COMPUTER sheet | Office: HQ-Accountants | 365 License: 1 | Kaspersky: 1 | UPS: 1 | Other: N/A | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "HQ-FINN-AK",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Hassan Sadiq",
+      "notes": "Source: COMPUTER sheet | Office: HQ-Accountants | 365 License: 1 | Kaspersky: 1 | UPS: 0 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "HQ-FIN-MN",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Mohammed Nasser",
+      "notes": "Source: COMPUTER sheet | Office: HQ-Accountants | 365 License: 1 | Kaspersky: 1 | UPS: 0 | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Macbook",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Mohanad Mazin",
+      "notes": "Source: COMPUTER sheet | Office: HQ-Accountants | 365 License: 1 | Kaspersky: no | UPS: no | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "LUKS-LP-HA",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Haider.aslan",
+      "notes": "Source: COMPUTER sheet | Office: HQ-Luks | 365 License: TRUE/luks | Kaspersky: 1 | UPS: 1 | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "HQ-LUKS-NM",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Noor Murad",
+      "notes": "Source: COMPUTER sheet | Office: HQ-Luks | 365 License: TRUE/luks | Kaspersky: 1 | UPS: 1 | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "HQ-LUKS-AIO",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "ammar",
+      "notes": "Source: COMPUTER sheet | Office: HQ-Luks | 365 License: no | Kaspersky: 1 | UPS: 1 | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "HQ-LUKS-AA",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Ali Abdulsalam",
+      "notes": "Source: COMPUTER sheet | Office: HQ-Luks | 365 License: TRUE/nahala | Kaspersky: 1 | UPS: 1 | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "HQ-LUKS-RH",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Rand Hassan",
+      "notes": "Source: COMPUTER sheet | Office: HQ-Luks | 365 License: TRUE/nahala | Kaspersky: 1 | UPS: 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "HQ-AIO-AB",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Ali Badran",
+      "notes": "Source: COMPUTER sheet | Office: HQ-Law | 365 License: 1 | Kaspersky: 1 | UPS: 1 | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "HQ-ABD-HISHAM",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Abdulqadir Hisham",
+      "notes": "Source: COMPUTER sheet | Office: HQ-Law | 365 License: 1 | Kaspersky: 1 | UPS: 1 | Other: keyboard and mouse/printer t220 /Scanner c240 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "HQ-LEGAL-YH",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Yahya Hussin",
+      "notes": "Source: COMPUTER sheet | Office: HQ-Law | 365 License: 1 | Kaspersky: 1 | UPS: 1 | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "HQ-PR-AS",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Ahmed Shehab",
+      "notes": "Source: COMPUTER sheet | Office: HQ-Project | 365 License: 1 | Kaspersky: 1 | UPS: 0 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Microsoft service",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Sulyman",
+      "notes": "Source: COMPUTER sheet | Office: HQ-Project | 365 License: 1 | Kaspersky: 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Laptop ThinkBook",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Waleed Awad",
+      "notes": "Source: COMPUTER sheet | Office: HQ | 365 License: 1 | UPS: N/A | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "All in one",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Waleed Awad",
+      "notes": "Source: COMPUTER sheet | Office: MEUC | 365 License: N/A | Kaspersky: N/A | UPS: N/A | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "All in one",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Waleed Awad",
+      "notes": "Source: COMPUTER sheet | Office: MEUC | 365 License: N/A | Kaspersky: N/A | UPS: N/A | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "All in one",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Waleed Awad",
+      "notes": "Source: COMPUTER sheet | Office: MEUC | 365 License: N/A | Kaspersky: N/A | UPS: N/A | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "All in one",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Waleed Awad",
+      "notes": "Source: COMPUTER sheet | Office: MEUC | 365 License: N/A | Kaspersky: N/A | UPS: N/A | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "acer Laptop Aspire 5",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Yousif atheer",
+      "notes": "Source: COMPUTER sheet | Office: Printer | 365 License: 1 | Kaspersky: 1 | UPS: N/A | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Acer Laptop Niro",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Mustafa Abbas",
+      "notes": "Source: COMPUTER sheet | Office: Printer | 365 License: NO | Kaspersky: 1 | UPS: N/A | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Desktop i5 =display",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Jamal",
+      "notes": "Source: COMPUTER sheet | Office: Printer | 365 License: NO | Kaspersky: NO | UPS: Yes | Other: keyboard , mouse and display | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "UMQ-02",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Hussein Abbas Hassan",
+      "notes": "Source: COMPUTER sheet | Office: Um Qasser | 365 License: TRUE | Kaspersky: TRUE | UPS: 1 | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "UMQ-01",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Zain Al-Abidin Mustafa Safi",
+      "notes": "Source: COMPUTER sheet | Office: Um Qasser | 365 License: NO | Kaspersky: TRUE | UPS: 1 | Other: keyboard and mouse & Scaner FI-7700S | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "UMQ-DK-ARCHIVE",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Ahmed Falah Abdullah",
+      "notes": "Source: COMPUTER sheet | Office: Um Qasser | 365 License: NO | Kaspersky: TRUE | UPS: 1 | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "UMQ-DK-COM3",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Jaber Ibrahim Jaber",
+      "notes": "Source: COMPUTER sheet | Office: Um Qasser | 365 License: NO | Kaspersky: TRUE | UPS: 1 | Other: keyboard and mouse& Canon 6030 printer | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "UMQ-DK-COM4",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Sajad Yusuf Yaqub",
+      "notes": "Source: COMPUTER sheet | Office: Um Qasser | 365 License: NO | Kaspersky: TRUE | UPS: 1 | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "SAF-01",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Ali Nasir Abdu-Alaa",
+      "notes": "Source: COMPUTER sheet | Office: Safwan | 365 License: TRUE | Kaspersky: TRUE | UPS: 1 | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "PC-SAFWAN-1",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Hisham Ayad Rashed",
+      "notes": "Source: COMPUTER sheet | Office: Safwan | 365 License: TRUE | Kaspersky: TRUE | UPS: N/A | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "SAFWAN-DK-ARCHI",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Yusuf Fahd Jabbar",
+      "notes": "Source: COMPUTER sheet | Office: Safwan | 365 License: TRUE | Kaspersky: TRUE | UPS: N/A | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "SAFWAN-SHARE",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Hussein Tulab Hammed",
+      "notes": "Source: COMPUTER sheet | Office: Safwan | 365 License: TRUE | Kaspersky: TRUE | UPS: 1 | Other: keyboard and mouse& Canon 6030 printer& color printer M8124 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "SAF-DK-MA",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Mustafa Abdul-Saeed",
+      "notes": "Source: COMPUTER sheet | Office: Safwan | 365 License: TRUE | Kaspersky: TRUE | UPS: 1 | Other: keyboard and mouse&Scaner&Printer Canon 6030 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "NUM-TRP-COM1",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Mustafa Kameel Mouter",
+      "notes": "Source: COMPUTER sheet | Office: Trebeel | 365 License: TRUE | Kaspersky: TRUE | UPS: 1 | Other: keyboard and mouse&Scaner DR-C240& Canon 6030 printer | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "NUM-TRP-COM2",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Buzz Ameer",
+      "notes": "Source: COMPUTER sheet | Office: Trebeel | 365 License: TRUE | Kaspersky: TRUE | UPS: 1 | Other: keyboard and mouse&Scaner DR-C240& Canon 6030 printer | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "NUM-TRP-COM3",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Roukan Satar Saleh",
+      "notes": "Source: COMPUTER sheet | Office: Trebeel | 365 License: TRUE | Kaspersky: TRUE | UPS: 1 | Other: keyboard and mouse&Scaner DR-C240& Canon 6030 printer | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "NUM-TRP-COM4",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Amer Mahmoud Shaker",
+      "notes": "Source: COMPUTER sheet | Office: Trebeel | 365 License: TRUE | Kaspersky: TRUE | UPS: 1 | Other: keyboard and mouse&Scaner DR-C240& Canon 6030 printer | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "NUM-TRP-COM5",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Yasser Amer Khaled",
+      "notes": "Source: COMPUTER sheet | Office: Trebeel | 365 License: TRUE | Kaspersky: TRUE | UPS: 1 | Other: keyboard and mouse&Scaner DR-C240& Canon 6030 printer | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "NUM-TRP-COM6",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Talha Ziad Tariq",
+      "notes": "Source: COMPUTER sheet | Office: Trebeel | 365 License: TRUE | Kaspersky: TRUE | UPS: 1 | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "NUM-TRP-COM7",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Ahmed Khaled Abdurahman",
+      "notes": "Source: COMPUTER sheet | Office: Trebeel | 365 License: TRUE | Kaspersky: TRUE | UPS: 1 | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "NUM-TRP-COM8",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Tariq Ziad",
+      "notes": "Source: COMPUTER sheet | Office: Trebeel | 365 License: TRUE | Kaspersky: TRUE | UPS: 1 | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Lenovo all in one",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Omar Muhammad Khalil",
+      "notes": "Source: COMPUTER sheet | Office: Arar | 365 License: TRUE | Kaspersky: TRUE | UPS: N/A | Other: keyboard and mouse | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Lenovo all in one",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Muhammad Raed Muhammad",
+      "notes": "Source: COMPUTER sheet | Office: Arar | 365 License: TRUE | Kaspersky: TRUE | UPS: N/A | Other: keyboard and mouse&Scaner DR-C240& Canon 6030 printer | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Lenovo LP",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "yousif Hatem",
+      "notes": "Source: COMPUTER sheet | Office: kirkuk | CPU: cor i5 | RAM: RAM 16 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Lenovo LP",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Ahmed read",
+      "notes": "Source: COMPUTER sheet | Office: kirkuk | CPU: cor i5 | RAM: RAM 16 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Lenovo LP",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Nabeel Maron",
+      "notes": "Source: COMPUTER sheet | Office: Turkiye | CPU: cor i5 | RAM: RAM 16 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Lenovo LP",
+      "category": "Computer",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "Moustafu",
+      "notes": "Source: COMPUTER sheet | Office: Turkiye | CPU: cor i5 | RAM: RAM 16 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "HP Laptop ProBook 650 G2",
+      "category": "laptop",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 2 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "HP Laptop ProBook 650 G2",
+      "category": "laptop",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 2 of 2 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "HP Laptop 850 G6",
+      "category": "laptop",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Eyeping GS-SW2028S",
+      "category": "POE switch",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Lenovo All in one",
+      "category": "All in one",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Cannon DR C240",
+      "category": "Scanner",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Need 3 Power Cable | Imported quantity item 1 of 3 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Cannon DR C240",
+      "category": "Scanner",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Need 3 Power Cable | Imported quantity item 2 of 3 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Cannon DR C240",
+      "category": "Scanner",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Need 3 Power Cable | Imported quantity item 3 of 3 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Xerox",
+      "category": "Scanner",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Cisco catlayst 2960",
+      "category": "Switch",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 4 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Cisco catlayst 2960",
+      "category": "Switch",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 2 of 4 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Cisco catlayst 2960",
+      "category": "Switch",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 3 of 4 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Cisco catlayst 2960",
+      "category": "Switch",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 4 of 4 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Microtik CRS326-24G",
+      "category": "Switch",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 2 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Microtik CRS326-24G",
+      "category": "Switch",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 2 of 2 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "HP LaserJet Pro MFP M281fdw",
+      "category": "Printer color",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: الاحبار غير متتطابقه | Imported quantity item 1 of 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "canon isyesnce MF275DW",
+      "category": "Printer color",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "image runner 2206",
+      "category": "Printer color",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "caconn 6030",
+      "category": "ink",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 9 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "caconn 6030",
+      "category": "ink",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 2 of 9 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "caconn 6030",
+      "category": "ink",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 3 of 9 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "caconn 6030",
+      "category": "ink",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 4 of 9 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "caconn 6030",
+      "category": "ink",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 5 of 9 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "caconn 6030",
+      "category": "ink",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 6 of 9 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "caconn 6030",
+      "category": "ink",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 7 of 9 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "caconn 6030",
+      "category": "ink",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 8 of 9 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "caconn 6030",
+      "category": "ink",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 9 of 9 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Cannon LB 6030",
+      "category": "Printer",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 3 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Cannon LB 6030",
+      "category": "Printer",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 2 of 3 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Cannon LB 6030",
+      "category": "Printer",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 3 of 3 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "image class mf 3010",
+      "category": "Printer color",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Brothere T220",
+      "category": "Printer color",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "G48/GPR-33/CEXV31",
+      "category": "ink",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 6 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "G48/GPR-33/CEXV31",
+      "category": "ink",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 2 of 6 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "G48/GPR-33/CEXV31",
+      "category": "ink",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 3 of 6 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "G48/GPR-33/CEXV31",
+      "category": "ink",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 4 of 6 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "G48/GPR-33/CEXV31",
+      "category": "ink",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 5 of 6 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "G48/GPR-33/CEXV31",
+      "category": "ink",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 6 of 6 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "camera stands",
+      "category": "stands",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 12 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "camera stands",
+      "category": "stands",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 2 of 12 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "camera stands",
+      "category": "stands",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 3 of 12 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "camera stands",
+      "category": "stands",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 4 of 12 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "camera stands",
+      "category": "stands",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 5 of 12 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "camera stands",
+      "category": "stands",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 6 of 12 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "camera stands",
+      "category": "stands",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 7 of 12 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "camera stands",
+      "category": "stands",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 8 of 12 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "camera stands",
+      "category": "stands",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 9 of 12 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "camera stands",
+      "category": "stands",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 10 of 12 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "camera stands",
+      "category": "stands",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 11 of 12 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "camera stands",
+      "category": "stands",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 12 of 12 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 10T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 18 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 10T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 2 of 18 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 10T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 3 of 18 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 10T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 4 of 18 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 10T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 5 of 18 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 10T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 6 of 18 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 10T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 7 of 18 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 10T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 8 of 18 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 10T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 9 of 18 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 10T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 10 of 18 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 10T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 11 of 18 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 10T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 12 of 18 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 10T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 13 of 18 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 10T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 14 of 18 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 10T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 15 of 18 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 10T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 16 of 18 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 10T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 17 of 18 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 10T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 18 of 18 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 8T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 17 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 8T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 2 of 17 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 8T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 3 of 17 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 8T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 4 of 17 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 8T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 5 of 17 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 8T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 6 of 17 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 8T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 7 of 17 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 8T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 8 of 17 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 8T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 9 of 17 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 8T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 10 of 17 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 8T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 11 of 17 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 8T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 12 of 17 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 8T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 13 of 17 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 8T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 14 of 17 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 8T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 15 of 17 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 8T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 16 of 17 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 8T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 17 of 17 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Hard drive 4T",
+      "category": "HHD",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Mimosa C5c",
+      "category": "?",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 2 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Mimosa C5c",
+      "category": "?",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 2 of 2 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Mikrotik routerboard Basebox",
+      "category": "?",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Mikrotik routerboard RB3011 Series",
+      "category": "?",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "firewall fortinet",
+      "category": "Network security",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Zk iface 950",
+      "category": "fingerprint",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Zk iface 1000",
+      "category": "fingerprint",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "logitech kit",
+      "category": "Mouse and keyboard",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 3 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "logitech kit",
+      "category": "Mouse and keyboard",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 2 of 3 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "logitech kit",
+      "category": "Mouse and keyboard",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 3 of 3 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Onv-POE33028F",
+      "category": "poe switch",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 2 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Onv-POE33028F",
+      "category": "poe switch",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 2 of 2 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "onv-H1108PL",
+      "category": "poe switch",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Microtik RB4011iGS",
+      "category": "router",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Microtik CRS326-24G",
+      "category": "Microtik CRS326-24G",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Dlhua",
+      "category": "NVR",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 2 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Dlhua",
+      "category": "NVR",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 2 of 2 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "UNV",
+      "category": "NVR",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: STORAGE sheet | Description: Reday | Imported quantity item 1 of 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 1 of 21 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 2 of 21 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 3 of 21 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 4 of 21 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 5 of 21 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 6 of 21 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 7 of 21 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 8 of 21 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 9 of 21 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 10 of 21 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 11 of 21 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 12 of 21 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 13 of 21 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 14 of 21 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 15 of 21 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 16 of 21 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 17 of 21 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 18 of 21 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 19 of 21 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 20 of 21 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 21 of 21 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision kit",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 1 of 3 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision kit",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 2 of 3 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "hikvision kit",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 3 of 3 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "dlhua kit",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 1 of 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "logitech Z120",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 1 of 2 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "logitech Z120",
+      "category": "Camera",
+      "status": "storage",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: CAMERA sheet | Description: Reday | Imported quantity item 2 of 2 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "LG Laptop LGR53",
+      "category": "Out Of Support",
+      "status": "broken",
+      "procurement_stage": "received",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: Out Of Support sheet | Description: Old cpu and 4 ram | Imported quantity item 1 of 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Fortigate Main",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | This FortiGate device is used for managing the organization's internal network within the Al-Mansour branch and handling the number management system. | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Fortigate Wi-Fi & Cameras",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | This FortiGate device is dedicated to managing the organization's Wi-Fi infrastructure and IP camera network. | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Cisco Catalyst 9200-Rack 2-1",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | Is used to provide internet connectivity to the company. | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Cisco Catalyst 9200-Rack 2-2",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | This Cisco Catalyst 9200 switch is used to provide internet connectivity to the servers. | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Cisco Catalyst 9200-DC-1",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | This Cisco Catalyst 9200 switch is used to provide internet connectivity to the servers. | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Cisco Catalyst 9200-DC-2",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | Is used to provide internet connectivity to the company | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Cisco Catalyst 2960.",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | Is used to provide internet connectivity to the company in Num Monter Room. | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Cisco Catalyst 2960.",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | Is used to provide internet connectivity to the company in IT Monter Room | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Cisco Catalyst 2960.",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | Is used to provide internet connectivity to the company in LUXE Room | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Unv 16+2+2 Port Gigabit PoE Switch",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | This UNV 16+2+2 Port Gigabit PoE Switch is used to operate and power the surveillance cameras at Gate 2. | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Unv 16+2+2 Port Gigabit PoE Switch",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | This UNV 16+2+2 Port Gigabit PoE Switch is used to operate and power the surveillance cameras at Gate 2. | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Unv 16+2+2 Port Gigabit PoE Switch",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | This UNV 16+2+2 Port Gigabit PoE Switch is used to operate and power the surveillance cameras at Gate 2. | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Unv 16+2+2 Port Gigabit PoE Switch",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | This UNV 16+2+2 Port Gigabit PoE Switch is used to operate and power the surveillance cameras at Gate 3. | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Unv 16+2+2 Port Gigabit PoE Switch",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | This UNV 16+2+2 Port Gigabit PoE Switch is used to operate and power the surveillance cameras at Gate 3. | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Unv 16+2+2 Port Gigabit PoE Switch",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | This UNV 16+2+2 Port Gigabit PoE Switch is used to operate and power the surveillance cameras at Gate 3. | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Unv 16+2+2 Port Gigabit PoE Switch",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | This UNV 16+2+2 Port Gigabit PoE Switch is used to operate and power the Wi-Fi access points. | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "RB3011UiAS-RM",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | Router Mangment EARTHLINK ISP 1 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "RB3011UiAS-RM",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | Router Mangment EARTHLINK ISP 2 | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "RB951G-2HnD",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | Router Mangment Linex-SVR Local | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "L009UiGS-RM",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | Router Mangment Awal ISP | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "RB4011iGS+RM",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | Router Mangment Scope ISP | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Fortigate Main",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | This FortiGate device is used for managing the organization's internal network within the Al-Mansour branch and handling the number management system. | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "RB951G-2HnD",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | Router Mangment Scope ISP | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "RB4011iGS+RM",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | Router Mangment Awal ISP | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Unv 10 Port",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | This UNV 10 Port Gigabit PoE Switch is used to Push DHCP to PC & Cameras. | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "NVR",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | A specialized device used in IP camera surveillance systems | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Fortigate Main",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | This FortiGate device is used for managing the organization's internal network within the Al-Mansour branch and handling the number management system. | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "RB4011iGS+RM",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | Router Mangment Scope ISP | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "L009UiGS-RM",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | Router Mangment Awal ISP | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Cisco Catalyst 2960.",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | Is used to provide internet connectivity to the branch PC and Cameras. | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "NVR",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | A specialized device used in IP camera surveillance systems | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Fortigate Main",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | This FortiGate device is used for managing the organization's internal network within the Al-Mansour branch and handling the number management system. | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "RB4011iGS+RM",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | Router Mangment Scope ISP | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "L009UiGS-RM",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | Router Mangment Awal ISP | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Cisco Catalyst 2960.",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | Is used to provide internet connectivity to the branch PC and Cameras. | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "NVR",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | A specialized device used in IP camera surveillance systems | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "Fortigate Main",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | This FortiGate device is used for managing the organization's internal network within the Al-Mansour branch and handling the number management system. | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "L009UiGS-RM",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | Router Mangment Awal ISP | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "IP-COM",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | Is used to provide internet connectivity to the branch PC and Cameras. | Imported from ASSET (1).xlsx"
+    },
+    {
+      "name": "NVR",
+      "category": "Network Device",
+      "status": "active",
+      "procurement_stage": "deployed",
+      "location": "IT",
+      "assigned_to": "",
+      "notes": "Source: NETWORK DEVICE sheet | A specialized device used in IP camera surveillance systems | Imported from ASSET (1).xlsx"
+    }
+  ],
+  "analysis": {
+    "computer_assets": 51,
+    "stock_assets": 104,
+    "camera_assets": 27,
+    "network_assets": 40,
+    "out_of_support_assets": 1
+  }
+}

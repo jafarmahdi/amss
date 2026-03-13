@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "name": "Admin User",
+        "email": "admin@example.com",
+        "role": "admin",
+        "password": "$2y$10$pPlr7T6KDMUeh7WqJeiP9OV1MN1IQ6aazPRjp2gYtbLxSXvrqkVoC",
+        "status": "active"
+    },
+    {
+        "id": 2,
+        "name": "Omar Khalid",
+        "email": "it.manager@example.com",
+        "role": "it_manager",
+        "password": "$2y$10$ZGBUEFmMeyfc8G5g.HQNO.fkQyYb3ULSRe.9uerrXVSm8rSU2Opca",
+        "status": "active"
+    },
+    {
+        "id": 3,
+        "name": "Sara Ahmed",
+        "email": "technician@example.com",
+        "role": "technician",
+        "password": "$2y$10$DvUnT34.uhvEUtyrAivzJu2rKKnyHaST3RDehnUdFmwS3idPj2nqK",
+        "status": "active"
+    },
+    {
+        "id": 4,
+        "name": "Layla Noor",
+        "email": "viewer@example.com",
+        "role": "viewer",
+        "password": "$2y$10$w/xVsiYOMI216.t47KQub.AEo3MwU5QdtQdYWW5cwbchvV9NU7Ki.",
+        "status": "active"
+    },
+    {
+        "id": 5,
+        "name": "Mina Ali Updated",
+        "email": "mina.updated@example.com",
+        "role": "technician",
+        "password": "$2y$10$QLm0yezUB.fW9YkxfovFbeUcWO6IjPaCxP5bYudOH066SEr8FXBdW",
+        "status": "active"
+    }
+]

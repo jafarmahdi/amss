@@ -1,0 +1,188 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Alnahala AMS API",
+    "version": "2.0.0",
+    "description": "Read-oriented API for dashboard, assets, branches, employees, licenses, spare parts, and report summaries, exposed through the existing front controller."
+  },
+  "servers": [
+    {
+      "url": "/asset/index.php?route=",
+      "description": "XAMPP application base"
+    }
+  ],
+  "paths": {
+    "/api/v1/dashboard": {
+      "get": {
+        "summary": "Dashboard payload",
+        "responses": {
+          "200": {
+            "description": "Dashboard stats, overview, and charts"
+          }
+        }
+      }
+    },
+    "/api/v1/assets": {
+      "get": {
+        "summary": "List assets",
+        "responses": {
+          "200": {
+            "description": "Array of assets"
+          }
+        }
+      }
+    },
+    "/api/v1/assets/{id}": {
+      "get": {
+        "summary": "Asset detail",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Asset detail with assignments, movements, repairs, handovers, and maintenance"
+          },
+          "404": {
+            "description": "Asset not found"
+          }
+        }
+      }
+    },
+    "/api/v1/branches": {
+      "get": {
+        "summary": "List branches",
+        "responses": {
+          "200": {
+            "description": "Array of branches"
+          }
+        }
+      }
+    },
+    "/api/v1/branches/{id}": {
+      "get": {
+        "summary": "Branch detail",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Branch detail with assets and employees"
+          },
+          "404": {
+            "description": "Branch not found"
+          }
+        }
+      }
+    },
+    "/api/v1/categories": {
+      "get": {
+        "summary": "List categories",
+        "responses": {
+          "200": {
+            "description": "Array of categories"
+          }
+        }
+      }
+    },
+    "/api/v1/employees": {
+      "get": {
+        "summary": "List employees",
+        "responses": {
+          "200": {
+            "description": "Array of employees"
+          }
+        }
+      }
+    },
+    "/api/v1/employees/{id}": {
+      "get": {
+        "summary": "Employee detail",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Employee profile with assets, licenses, and offboarding history"
+          },
+          "404": {
+            "description": "Employee not found"
+          }
+        }
+      }
+    },
+    "/api/v1/licenses": {
+      "get": {
+        "summary": "List licenses",
+        "responses": {
+          "200": {
+            "description": "Array of licenses"
+          }
+        }
+      }
+    },
+    "/api/v1/licenses/{id}": {
+      "get": {
+        "summary": "License detail",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "License detail with renewal history"
+          },
+          "404": {
+            "description": "License not found"
+          }
+        }
+      }
+    },
+    "/api/v1/spare-parts": {
+      "get": {
+        "summary": "Spare parts inventory",
+        "responses": {
+          "200": {
+            "description": "Spare part summary and items"
+          }
+        }
+      }
+    },
+    "/api/v1/reports/summary": {
+      "get": {
+        "summary": "Report summary payload",
+        "responses": {
+          "200": {
+            "description": "Summary counters for reporting"
+          }
+        }
+      }
+    }
+  }
+}

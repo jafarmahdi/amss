@@ -1,0 +1,16 @@
+{
+    "custom-20260313022515-4a9b33": {
+        "kind": "book",
+        "title": "Temporary Admin Book",
+        "category": "Tests",
+        "description": "Temporary runtime verification",
+        "related_route_name": "settings",
+        "files": {
+            "pdf": {
+                "path": "storage\/app\/administrative-forms\/custom\/custom-20260313022515-4a9b33\/1773365115_0_admin-book-test.XXXXXX.pdf",
+                "download_name": "admin-book-test.XXXXXX.pdf"
+            }
+        },
+        "source": "custom"
+    }
+}

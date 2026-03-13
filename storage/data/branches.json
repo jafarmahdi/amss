@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "name": "Headquarters",
+        "type": "HQ",
+        "address": "Karrada, Baghdad",
+        "assets": 64
+    },
+    {
+        "id": 2,
+        "name": "Baghdad Branch",
+        "type": "Branch",
+        "address": "Mansour, Baghdad",
+        "assets": 31
+    },
+    {
+        "id": 3,
+        "name": "Basra Office",
+        "type": "Office",
+        "address": "Ashar, Basra",
+        "assets": 22
+    },
+    {
+        "id": 4,
+        "name": "Central Storage",
+        "type": "Storage",
+        "address": "Industrial Zone, Baghdad",
+        "assets": 19
+    },
+    {
+        "id": 5,
+        "name": "test",
+        "type": "HQ",
+        "address": "test",
+        "assets": 0
+    }
+]
