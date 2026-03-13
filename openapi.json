@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Alnahala AMS API",
-    "version": "2.0.0",
-    "description": "Read-oriented API for dashboard, assets, branches, employees, licenses, spare parts, and report summaries, exposed through the existing front controller."
+    "title": "Alnahala AMS Integration API",
+    "version": "3.0.0",
+    "description": "Swagger/OpenAPI definition for external integrations, mobile apps, and fingerprint devices. Use `X-API-Key` for server-to-server integrations and `Bearer` tokens for mobile-user sessions."
   },
   "servers": [
     {
@@ -11,10 +11,221 @@
       "description": "XAMPP application base"
     }
   ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      },
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "Token"
+      }
+    },
+    "schemas": {
+      "AuthLoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "RequestCreatePayload": {
+        "type": "object",
+        "required": ["title"],
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "scenario": {
+            "type": "string",
+            "example": "general"
+          },
+          "requested_for_employee_id": {
+            "type": "integer"
+          },
+          "branch_id": {
+            "type": "integer"
+          },
+          "justification": {
+            "type": "string"
+          },
+          "asset_specification": {
+            "type": "string"
+          },
+          "urgency": {
+            "type": "string",
+            "example": "normal"
+          },
+          "submit_now": {
+            "type": "boolean"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "item_type": {
+                  "type": "string",
+                  "example": "asset"
+                },
+                "item_name": {
+                  "type": "string"
+                },
+                "category_id": {
+                  "type": "integer"
+                },
+                "quantity": {
+                  "type": "integer"
+                },
+                "estimated_unit_cost": {
+                  "type": "number"
+                },
+                "fulfillment_preference": {
+                  "type": "string"
+                },
+                "assignment_target": {
+                  "type": "string"
+                },
+                "specification": {
+                  "type": "string"
+                },
+                "notes": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "FingerprintEventPayload": {
+        "type": "object",
+        "properties": {
+          "device_id": {
+            "type": "string"
+          },
+          "device_name": {
+            "type": "string"
+          },
+          "event_type": {
+            "type": "string",
+            "example": "check_in"
+          },
+          "event_time": {
+            "type": "string",
+            "example": "2026-03-13 09:00:00"
+          },
+          "fingerprint_id": {
+            "type": "string"
+          },
+          "employee_code": {
+            "type": "string"
+          },
+          "company_email": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
   "paths": {
+    "/api/v1/auth/login": {
+      "post": {
+        "summary": "Login for mobile/external user sessions",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthLoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Bearer token with user profile and permissions"
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "summary": "Revoke the current bearer token",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token revoked"
+          }
+        }
+      }
+    },
+    "/api/v1/me": {
+      "get": {
+        "summary": "Current mobile API user",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User profile and permissions"
+          }
+        }
+      }
+    },
+    "/api/v1/notifications": {
+      "get": {
+        "summary": "Notifications for the current bearer user",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notification items and unread count"
+          }
+        }
+      }
+    },
     "/api/v1/dashboard": {
       "get": {
         "summary": "Dashboard payload",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Dashboard stats, overview, and charts"
@@ -25,6 +236,14 @@
     "/api/v1/assets": {
       "get": {
         "summary": "List assets",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Array of assets"
@@ -35,6 +254,14 @@
     "/api/v1/assets/{id}": {
       "get": {
         "summary": "Asset detail",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -58,6 +285,14 @@
     "/api/v1/branches": {
       "get": {
         "summary": "List branches",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Array of branches"
@@ -68,6 +303,14 @@
     "/api/v1/branches/{id}": {
       "get": {
         "summary": "Branch detail",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -91,6 +334,14 @@
     "/api/v1/categories": {
       "get": {
         "summary": "List categories",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Array of categories"
@@ -101,6 +352,14 @@
     "/api/v1/employees": {
       "get": {
         "summary": "List employees",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Array of employees"
@@ -108,9 +367,58 @@
         }
       }
     },
+    "/api/v1/employees/lookup": {
+      "get": {
+        "summary": "Lookup an employee for fingerprint/device integrations",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "fingerprint_id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "employee_code",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "company_email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Matched employee payload"
+          },
+          "404": {
+            "description": "Employee not found"
+          }
+        }
+      }
+    },
     "/api/v1/employees/{id}": {
       "get": {
         "summary": "Employee detail",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -134,6 +442,14 @@
     "/api/v1/licenses": {
       "get": {
         "summary": "List licenses",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Array of licenses"
@@ -144,6 +460,14 @@
     "/api/v1/licenses/{id}": {
       "get": {
         "summary": "License detail",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -167,6 +491,14 @@
     "/api/v1/spare-parts": {
       "get": {
         "summary": "Spare parts inventory",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Spare part summary and items"
@@ -177,9 +509,159 @@
     "/api/v1/reports/summary": {
       "get": {
         "summary": "Report summary payload",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Summary counters for reporting"
+          }
+        }
+      }
+    },
+    "/api/v1/requests": {
+      "get": {
+        "summary": "List requests for mobile or external integrations",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mine",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request list and summary"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new request from the mobile app",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestCreatePayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Request created successfully"
+          },
+          "403": {
+            "description": "Bearer token does not have request creation permission"
+          }
+        }
+      }
+    },
+    "/api/v1/requests/{id}": {
+      "get": {
+        "summary": "Request detail",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request detail with items, approvals, and timeline"
+          },
+          "404": {
+            "description": "Request not found"
+          }
+        }
+      }
+    },
+    "/api/v1/fingerprint/employees": {
+      "get": {
+        "summary": "Export active employees for fingerprint device sync",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Fingerprint-ready employee list"
+          }
+        }
+      }
+    },
+    "/api/v1/fingerprint/events": {
+      "post": {
+        "summary": "Push a fingerprint device event into the system",
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FingerprintEventPayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Event stored successfully"
+          },
+          "422": {
+            "description": "Missing required identifiers"
           }
         }
       }

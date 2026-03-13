@@ -7,6 +7,14 @@
     <a href="<?= e($specUrl) ?>" class="btn btn-outline-secondary" target="_blank" rel="noreferrer">Open JSON</a>
 </div>
 
+<?php if ($integrationKey !== null): ?>
+    <div class="alert alert-info mb-4">
+        <div class="fw-semibold mb-2">Integration API Key</div>
+        <div class="small mb-2">Use this value in the Swagger Authorize dialog as `X-API-Key` for external apps and fingerprint devices.</div>
+        <code><?= e($integrationKey) ?></code>
+    </div>
+<?php endif; ?>
+
 <div class="card p-0 overflow-hidden">
     <div id="swagger-ui"></div>
 </div>

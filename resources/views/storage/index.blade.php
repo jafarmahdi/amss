@@ -29,7 +29,7 @@ $activeTab = in_array($filters['section'], ['spare_parts', 'licenses', 'received
         <span class="surface-chip"><i class="bi bi-tools"></i> <?= e((string) $summary['spare_parts_quantity']) ?> <?= e(__('nav.spare_parts', 'Spare Parts')) ?></span>
         <span class="surface-chip"><i class="bi bi-key"></i> <?= e((string) $summary['license_available_seats']) ?> <?= e(__('licenses.available_seats', 'Available Seats')) ?></span>
         <span class="surface-chip"><i class="bi bi-exclamation-triangle"></i> <?= e((string) $issueCount) ?> <?= e(__('storage.issues_total', 'items need attention')) ?></span>
-        <span class="surface-chip"><i class="bi bi-funnel"></i> <?= e((string) $visibleRecords) ?> <?= e(__('storage.visible_records', 'visible records')) ?></span>
+        <span class="surface-chip"><i class="bi bi-funnel"></i> <span id="storage-visible-count"><?= e((string) $visibleRecords) ?></span> <?= e(__('storage.visible_records', 'visible records')) ?></span>
     </div>
 </div>
 
@@ -76,7 +76,7 @@ $activeTab = in_array($filters['section'], ['spare_parts', 'licenses', 'received
                 <a href="<?= e(route('storage.index')) ?>" class="btn btn-outline-secondary"><?= e(__('common.reset_filters', 'Reset')) ?></a>
             </div>
             <div class="col-12 d-flex flex-wrap gap-2">
-                <span class="surface-chip"><i class="bi bi-filter"></i> <?= e((string) $activeFilterCount) ?> <?= e(__('storage.active_filters', 'active filters')) ?></span>
+                <span class="surface-chip"><i class="bi bi-filter"></i> <span id="storage-active-filter-count"><?= e((string) $activeFilterCount) ?></span> <?= e(__('storage.active_filters', 'active filters')) ?></span>
                 <?php if ($topStorageItem !== null): ?>
                     <span class="surface-chip"><i class="bi bi-box2"></i> <?= e(__('storage.top_item', 'Top item')) ?>: <?= e($topStorageItem['item']) ?> (<?= e((string) $topStorageItem['qty']) ?>)</span>
                 <?php endif; ?>
@@ -84,6 +84,10 @@ $activeTab = in_array($filters['section'], ['spare_parts', 'licenses', 'received
             </div>
         </form>
     </div>
+</div>
+
+<div id="storage-live-empty" class="alert alert-info d-none mb-4">
+    <?= e(__('storage.empty_filters', 'No storage records matched the current live filters.')) ?>
 </div>
 
 <div class="row g-3 mb-4">
@@ -117,7 +121,7 @@ $activeTab = in_array($filters['section'], ['spare_parts', 'licenses', 'received
     </div>
 </div>
 
-<div class="card mb-4 ops-table-card">
+<div class="card mb-4 ops-table-card" id="storage-stock-card">
     <div class="card-header">
         <div class="ops-panel-title">
             <h5><?= e(__('storage.in_stock', 'In storage')) ?></h5>
@@ -141,7 +145,7 @@ $activeTab = in_array($filters['section'], ['spare_parts', 'licenses', 'received
                         $isLow = (int) $item['qty'] < 5;
                         $meterWidth = $storageMaxQty > 0 ? max(14, min(100, round(((int) $item['qty'] / $storageMaxQty) * 100, 2))) : 14;
                         ?>
-                        <tr class="<?= $index >= $previewLimit ? 'd-none storage-extra-row' : '' ?>" data-search="<?= e(strtolower(implode(' ', [$item['item'], $item['category'], $item['branch'], $item['status'], $item['barcode_preview'] ?? '']))) ?>" data-section="storage" data-branch="<?= e($item['branch']) ?>" data-category="<?= e($item['category']) ?>">
+                        <tr class="<?= $index >= $previewLimit ? 'd-none storage-extra-row' : '' ?>" data-preview-hidden="<?= $index >= $previewLimit ? '1' : '0' ?>" data-search="<?= e(strtolower(implode(' ', [$item['item'], $item['category'], $item['branch'], $item['status'], $item['barcode_preview'] ?? '']))) ?>" data-section="storage" data-branch="<?= e($item['branch']) ?>" data-category="<?= e($item['category']) ?>">
                             <td>
                                 <a href="<?= e(route('assets.show', ['id' => $item['sample_asset_id']])) ?>" class="fw-semibold"><?= e($item['item']) ?></a>
                                 <?php if (($item['barcode_preview'] ?? '') !== ''): ?>
@@ -184,7 +188,7 @@ $activeTab = in_array($filters['section'], ['spare_parts', 'licenses', 'received
     <?php endif; ?>
 </div>
 
-<div class="card ops-table-card">
+<div class="card ops-table-card" id="storage-detailed-card">
     <div class="card-header">
         <div class="ops-panel-title">
             <h5><?= e(__('storage.more_sections', 'Detailed sections')) ?></h5>
@@ -226,7 +230,7 @@ $activeTab = in_array($filters['section'], ['spare_parts', 'licenses', 'received
                                     $isLow = (int) $part['quantity'] < 5;
                                     $meterWidth = $spareMaxQty > 0 ? max(14, min(100, round(((int) $part['quantity'] / $spareMaxQty) * 100, 2))) : 14;
                                     ?>
-                                    <tr class="<?= $index >= $previewLimit ? 'd-none spare-extra-row' : '' ?>" data-search="<?= e(strtolower(implode(' ', [$part['name'], $part['part_number'], $part['category'], $part['location']]))) ?>" data-section="spare_parts" data-branch="<?= e($part['location']) ?>" data-category="<?= e($part['category']) ?>">
+                                    <tr class="<?= $index >= $previewLimit ? 'd-none spare-extra-row' : '' ?>" data-preview-hidden="<?= $index >= $previewLimit ? '1' : '0' ?>" data-search="<?= e(strtolower(implode(' ', [$part['name'], $part['part_number'], $part['category'], $part['location']]))) ?>" data-section="spare_parts" data-branch="<?= e($part['location']) ?>" data-category="<?= e($part['category']) ?>">
                                         <td>
                                             <a href="<?= e(route('spare-parts.show', ['id' => $part['id']])) ?>" class="fw-semibold"><?= e($part['name']) ?></a>
                                             <div class="small text-muted"><?= e($part['part_number']) ?></div>
@@ -269,7 +273,7 @@ $activeTab = in_array($filters['section'], ['spare_parts', 'licenses', 'received
                             <?php if ($licenseStock !== []): ?>
                                 <?php foreach ($licenseStock as $index => $license): ?>
                                     <?php $meterWidth = $licenseMaxQty > 0 ? max(14, min(100, round(((int) $license['available_seats'] / $licenseMaxQty) * 100, 2))) : 14; ?>
-                                    <tr class="<?= $index >= $previewLimit ? 'd-none license-extra-row' : '' ?>" data-search="<?= e(strtolower(implode(' ', [$license['product_name'], $license['vendor_name'], $license['license_type'], $license['status']]))) ?>" data-section="licenses" data-branch="" data-category="">
+                                    <tr class="<?= $index >= $previewLimit ? 'd-none license-extra-row' : '' ?>" data-preview-hidden="<?= $index >= $previewLimit ? '1' : '0' ?>" data-search="<?= e(strtolower(implode(' ', [$license['product_name'], $license['vendor_name'], $license['license_type'], $license['status']]))) ?>" data-section="licenses" data-branch="" data-category="">
                                         <td>
                                             <a href="<?= e(route('licenses.show', ['id' => $license['id']])) ?>" class="fw-semibold"><?= e($license['product_name']) ?></a>
                                             <div class="small text-muted"><?= e($license['vendor_name']) ?> • <?= e(__('licenses.type_' . $license['license_type'], ucfirst($license['license_type']))) ?></div>
@@ -310,7 +314,7 @@ $activeTab = in_array($filters['section'], ['spare_parts', 'licenses', 'received
                         <tbody>
                             <?php if ($receivedAssets !== []): ?>
                                 <?php foreach ($receivedAssets as $index => $asset): ?>
-                                    <tr class="<?= $index >= $previewLimit ? 'd-none received-extra-row' : '' ?>" data-search="<?= e(strtolower(implode(' ', [$asset['name'], $asset['tag'], $asset['category'], $asset['branch'], $asset['status']]))) ?>" data-section="received" data-branch="<?= e($asset['branch']) ?>" data-category="<?= e($asset['category']) ?>">
+                                    <tr class="<?= $index >= $previewLimit ? 'd-none received-extra-row' : '' ?>" data-preview-hidden="<?= $index >= $previewLimit ? '1' : '0' ?>" data-search="<?= e(strtolower(implode(' ', [$asset['name'], $asset['tag'], $asset['category'], $asset['branch'], $asset['status']]))) ?>" data-section="received" data-branch="<?= e($asset['branch']) ?>" data-category="<?= e($asset['category']) ?>">
                                         <td>
                                             <a href="<?= e(route('assets.show', ['id' => $asset['id']])) ?>" class="fw-semibold"><?= e($asset['name']) ?></a>
                                             <div class="small text-muted"><?= e($asset['tag']) ?></div>
@@ -351,7 +355,7 @@ $activeTab = in_array($filters['section'], ['spare_parts', 'licenses', 'received
                         <tbody>
                             <?php if ($brokenAssets !== []): ?>
                                 <?php foreach ($brokenAssets as $index => $asset): ?>
-                                    <tr class="<?= $index >= $previewLimit ? 'd-none broken-extra-row' : '' ?>" data-search="<?= e(strtolower(implode(' ', [$asset['name'], $asset['tag'], $asset['category'], $asset['branch'], $asset['status']]))) ?>" data-section="broken" data-branch="<?= e($asset['branch']) ?>" data-category="<?= e($asset['category']) ?>">
+                                    <tr class="<?= $index >= $previewLimit ? 'd-none broken-extra-row' : '' ?>" data-preview-hidden="<?= $index >= $previewLimit ? '1' : '0' ?>" data-search="<?= e(strtolower(implode(' ', [$asset['name'], $asset['tag'], $asset['category'], $asset['branch'], $asset['status']]))) ?>" data-section="broken" data-branch="<?= e($asset['branch']) ?>" data-category="<?= e($asset['category']) ?>">
                                         <td>
                                             <a href="<?= e(route('assets.show', ['id' => $asset['id']])) ?>" class="fw-semibold"><?= e($asset['name']) ?></a>
                                             <div class="small text-muted"><?= e($asset['tag']) ?></div>
@@ -400,7 +404,7 @@ $activeTab = in_array($filters['section'], ['spare_parts', 'licenses', 'received
                         <tbody>
                             <?php if ($repairQueue !== []): ?>
                                 <?php foreach ($repairQueue as $index => $asset): ?>
-                                    <tr class="<?= $index >= $previewLimit ? 'd-none repair-extra-row' : '' ?>" data-search="<?= e(strtolower(implode(' ', [$asset['name'], $asset['tag'], $asset['category'], $asset['branch'], $asset['status']]))) ?>" data-section="repair" data-branch="<?= e($asset['branch']) ?>" data-category="<?= e($asset['category']) ?>">
+                                    <tr class="<?= $index >= $previewLimit ? 'd-none repair-extra-row' : '' ?>" data-preview-hidden="<?= $index >= $previewLimit ? '1' : '0' ?>" data-search="<?= e(strtolower(implode(' ', [$asset['name'], $asset['tag'], $asset['category'], $asset['branch'], $asset['status']]))) ?>" data-section="repair" data-branch="<?= e($asset['branch']) ?>" data-category="<?= e($asset['category']) ?>">
                                         <td><a href="<?= e(route('assets.show', ['id' => $asset['id']])) ?>" class="fw-semibold"><?= e($asset['name']) ?></a></td>
                                         <td><?= e($asset['tag']) ?></td>
                                         <td>
@@ -445,20 +449,80 @@ document.addEventListener('DOMContentLoaded', function () {
     var exportXls = document.getElementById('storage-export-xls');
     var exportPdf = document.getElementById('storage-export-pdf');
     var rows = document.querySelectorAll('.storage-table tbody tr[data-search]');
+    var visibleCount = document.getElementById('storage-visible-count');
+    var activeFilterCount = document.getElementById('storage-active-filter-count');
+    var emptyState = document.getElementById('storage-live-empty');
+    var stockCard = document.getElementById('storage-stock-card');
+    var detailedCard = document.getElementById('storage-detailed-card');
+
+    function syncSectionPanels(section) {
+        var detailedSections = ['spare_parts', 'licenses', 'received', 'broken', 'repair'];
+
+        if (stockCard) {
+            stockCard.classList.toggle('d-none', detailedSections.indexOf(section) !== -1);
+        }
+
+        if (detailedCard) {
+            detailedCard.classList.toggle('d-none', section === 'storage');
+        }
+    }
+
+    function syncSectionTab(section) {
+        if (!section || section === 'storage' || typeof bootstrap === 'undefined') {
+            return;
+        }
+
+        var tabButton = document.getElementById('tab-' + section);
+        if (tabButton) {
+            bootstrap.Tab.getOrCreateInstance(tabButton).show();
+        }
+    }
 
     function applyStorageFilter() {
         var term = (searchInput && searchInput.value || '').toLowerCase().trim();
         var section = sectionInput ? sectionInput.value : '';
         var branch = branchInput ? branchInput.value : '';
         var category = categoryInput ? categoryInput.value : '';
+        var hasActiveFilter = !!(term || section || branch || category);
+        var matchedRows = 0;
+        var activeCount = [term, section, branch, category].filter(function (value) {
+            return value !== '';
+        }).length;
 
         rows.forEach(function (row) {
             var show = (!term || row.dataset.search.indexOf(term) !== -1)
                 && (!section || row.dataset.section === section)
                 && (!branch || row.dataset.branch === branch)
                 && (!category || row.dataset.category === category);
-            row.style.display = show ? '' : 'none';
+            var previewHidden = row.dataset.previewHidden === '1';
+
+            if (hasActiveFilter) {
+                row.classList.remove('d-none');
+                row.style.display = show ? '' : 'none';
+            } else {
+                row.style.display = '';
+                row.classList.toggle('d-none', previewHidden);
+            }
+
+            if (show) {
+                matchedRows += 1;
+            }
         });
+
+        if (visibleCount) {
+            visibleCount.textContent = String(matchedRows);
+        }
+
+        if (activeFilterCount) {
+            activeFilterCount.textContent = String(activeCount);
+        }
+
+        if (emptyState && rows.length > 0) {
+            emptyState.classList.toggle('d-none', matchedRows !== 0);
+        }
+
+        syncSectionPanels(section);
+        syncSectionTab(section);
 
         [exportXls, exportPdf].forEach(function (link) {
             if (!link) {
@@ -480,6 +544,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
             document.querySelectorAll(target).forEach(function (row) {
+                row.dataset.previewHidden = '0';
                 row.classList.remove('d-none');
             });
             button.remove();

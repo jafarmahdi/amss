@@ -10,6 +10,40 @@ class RequestWorkflow
 {
     private const REQUESTER_OWN_STATUSES = ['draft', 'needs_info'];
 
+    public static function configuration(): array
+    {
+        $settings = DataRepository::systemSettings();
+        $financeMode = (string) ($settings['request_workflow_finance_mode'] ?? 'always');
+        if (!in_array($financeMode, ['always', 'threshold', 'disabled'], true)) {
+            $financeMode = 'always';
+        }
+
+        $defaultScenario = (string) ($settings['request_default_scenario'] ?? 'general');
+        if (!in_array($defaultScenario, ['general', 'employee_onboarding', 'branch_deployment', 'replacement', 'stock_replenishment'], true)) {
+            $defaultScenario = 'general';
+        }
+
+        $defaultUrgency = (string) ($settings['request_default_urgency'] ?? 'normal');
+        if (!in_array($defaultUrgency, ['low', 'normal', 'high', 'critical'], true)) {
+            $defaultUrgency = 'normal';
+        }
+
+        $financeThreshold = trim((string) ($settings['request_workflow_finance_threshold'] ?? '0'));
+
+        return [
+            'it_manager_required' => ($settings['request_workflow_it_manager_required'] ?? '1') === '1',
+            'allow_storage_fulfillment' => ($settings['request_workflow_allow_storage_fulfillment'] ?? '1') === '1',
+            'finance_mode' => $financeMode,
+            'finance_threshold' => is_numeric($financeThreshold) ? max(0, (float) $financeThreshold) : 0.0,
+            'auto_close_on_receive' => ($settings['request_workflow_auto_close_on_receive'] ?? '0') === '1',
+            'default_scenario' => $defaultScenario,
+            'default_urgency' => $defaultUrgency,
+            'storage_fulfillment_status' => (($settings['request_workflow_it_manager_required'] ?? '1') === '1') ? 'pending_it_manager' : 'pending_it',
+            'storage_fulfillment_role' => (($settings['request_workflow_it_manager_required'] ?? '1') === '1') ? 'it_manager' : 'technician',
+            'storage_fulfillment_approval_step' => (($settings['request_workflow_it_manager_required'] ?? '1') === '1') ? 'it_manager' : 'it',
+        ];
+    }
+
     public static function statuses(): array
     {
         return [
@@ -136,6 +170,16 @@ class RequestWorkflow
             'skipped' => __('requests.decision.skipped', 'Skipped'),
             default => __('requests.waiting', 'Waiting'),
         };
+    }
+
+    public static function storageFulfillmentStatus(): string
+    {
+        return (string) self::configuration()['storage_fulfillment_status'];
+    }
+
+    public static function storageFulfillmentRole(): string
+    {
+        return (string) self::configuration()['storage_fulfillment_role'];
     }
 
     public static function timelineActionLabel(string $action): string
@@ -789,7 +833,7 @@ class RequestWorkflow
             throw new \RuntimeException('You are not allowed to approve this request.');
         }
 
-        $step = self::approvalStepForStatus((string) $request['status']);
+        $step = self::approvalStepForStatus((string) $request['status'], $request);
         if ($step === null) {
             throw new \RuntimeException('This request is not awaiting approval.');
         }
@@ -831,11 +875,24 @@ class RequestWorkflow
                 self::addTimeline($pdo, $id, 'approved_' . $step['approval_step'], (string) $request['status'], $nextStatus, $comment);
 
                 if ($nextStatus === 'approved') {
-                    self::notifyUsers($pdo, [(int) $request['requested_by_user_id']], 'request_approved', [
-                        'title' => __('requests.notifications.approved_title', 'Request approved'),
-                        'message' => (string) $request['request_no'] . ' - ' . __('requests.notifications.approved_message', 'Finance approved the request.'),
-                        'route' => route('requests.show', ['id' => $id]),
-                    ]);
+                    if ($step['approval_step'] === 'finance') {
+                        self::notifyUsers($pdo, [(int) $request['requested_by_user_id']], 'request_approved', [
+                            'title' => __('requests.notifications.approved_title', 'Request approved'),
+                            'message' => (string) $request['request_no'] . ' - ' . __('requests.notifications.approved_message', 'Finance approved the request.'),
+                            'route' => route('requests.show', ['id' => $id]),
+                        ]);
+                    } else {
+                        self::notifyRole($pdo, 'finance', 'request_pending', [
+                            'title' => __('requests.notifications.pending_title', 'Request awaiting approval'),
+                            'message' => (string) $request['request_no'] . ' - ' . __('requests.notifications.ready_for_procurement', 'Approved and ready for procurement actions.'),
+                            'route' => route('requests.show', ['id' => $id]),
+                        ]);
+                        self::notifyUsers($pdo, [(int) $request['requested_by_user_id']], 'request_approved', [
+                            'title' => __('requests.notifications.approved_title', 'Request approved'),
+                            'message' => (string) $request['request_no'] . ' - ' . __('requests.notifications.approved_waiting_execution', 'The request is approved and waiting for purchase, receive, or close actions.'),
+                            'route' => route('requests.show', ['id' => $id]),
+                        ]);
+                    }
                 } else {
                     self::notifyRole($pdo, $nextPendingRole, 'request_pending', [
                         'title' => __('requests.notifications.pending_title', 'Request awaiting approval'),
@@ -972,9 +1029,36 @@ class RequestWorkflow
 
             self::addTimeline($pdo, $id, 'marked_' . $nextStatus, (string) $request['status'], $nextStatus, $timelineComment);
 
+            $notificationStatus = $nextStatus;
+            if (
+                $nextStatus === 'received'
+                && (self::configuration()['auto_close_on_receive'] ?? false)
+                && (
+                    !self::requestContainsItemType($request, 'asset')
+                    || self::linkedAssetsCount($id) >= max(1, self::requestItemQuantityByType($request, 'asset'))
+                )
+            ) {
+                $pdo->prepare(
+                    'UPDATE asset_requests
+                     SET status = :status,
+                         current_pending_role = :current_pending_role,
+                         current_pending_user_id = NULL,
+                         closed_at = COALESCE(closed_at, NOW()),
+                         updated_at = NOW()
+                     WHERE id = :id'
+                )->execute([
+                    'id' => $id,
+                    'status' => 'closed',
+                    'current_pending_role' => 'none',
+                ]);
+
+                self::addTimeline($pdo, $id, 'marked_closed', 'received', 'closed', __('settings.workflow_auto_close_note', 'Automatically closed after receive.'));
+                $notificationStatus = 'closed';
+            }
+
             self::notifyUsers($pdo, [(int) $request['requested_by_user_id']], 'request_progress', [
                 'title' => __('requests.notifications.progress_title', 'Request updated'),
-                'message' => (string) $request['request_no'] . ' - ' . self::statusLabel($nextStatus),
+                'message' => (string) $request['request_no'] . ' - ' . self::statusLabel($notificationStatus),
                 'route' => route('requests.show', ['id' => $id]),
             ]);
 
@@ -1064,7 +1148,7 @@ class RequestWorkflow
             return self::approvalStepForStatus((string) ($request['status'] ?? '')) !== null;
         }
 
-        $step = self::approvalStepForStatus((string) ($request['status'] ?? ''));
+        $step = self::approvalStepForStatus((string) ($request['status'] ?? ''), $request);
         if ($step === null) {
             return false;
         }
@@ -1111,7 +1195,15 @@ class RequestWorkflow
             return false;
         }
 
-        if ((string) ($request['status'] ?? '') !== 'pending_it_manager') {
+        $configuration = self::configuration();
+        if (!($configuration['allow_storage_fulfillment'] ?? true)) {
+            return false;
+        }
+
+        $storageStatus = (string) ($configuration['storage_fulfillment_status'] ?? 'pending_it_manager');
+        $storageRole = (string) ($configuration['storage_fulfillment_role'] ?? 'it_manager');
+
+        if ((string) ($request['status'] ?? '') !== $storageStatus) {
             return false;
         }
 
@@ -1119,11 +1211,11 @@ class RequestWorkflow
             return self::storageFulfillmentRows($request) !== [];
         }
 
-        if ((string) ($user['role'] ?? '') !== 'it_manager') {
+        if ((string) ($user['role'] ?? '') !== $storageRole) {
             return false;
         }
 
-        if (!self::matchesPendingRole($request, 'it_manager') || !self::matchesPendingUser($request, $user)) {
+        if (!self::matchesPendingRole($request, $storageRole) || !self::matchesPendingUser($request, $user)) {
             return false;
         }
 
@@ -1434,7 +1526,11 @@ class RequestWorkflow
             throw new \RuntimeException('You are not allowed to fulfill this request from storage.');
         }
 
-        if ((string) ($request['status'] ?? '') !== 'pending_it_manager') {
+        $configuration = self::configuration();
+        $storageStatus = (string) ($configuration['storage_fulfillment_status'] ?? 'pending_it_manager');
+        $approvalStep = (string) ($configuration['storage_fulfillment_approval_step'] ?? 'it_manager');
+
+        if ((string) ($request['status'] ?? '') !== $storageStatus) {
             throw new \RuntimeException('This request cannot be fulfilled from storage.');
         }
 
@@ -1452,12 +1548,12 @@ class RequestWorkflow
         $pdo->beginTransaction();
         try {
             $lockedRequest = self::findForUpdate($pdo, $id);
-            if ($lockedRequest === null || (string) ($lockedRequest['status'] ?? '') !== 'pending_it_manager') {
-                throw new \RuntimeException('This request is no longer waiting for IT Manager approval.');
+            if ($lockedRequest === null || (string) ($lockedRequest['status'] ?? '') !== $storageStatus) {
+                throw new \RuntimeException('This request is no longer waiting for the configured approval stage.');
             }
 
-            self::addApproval($pdo, $id, 'it_manager', $actorId, 'approved', $comment);
-            self::addTimeline($pdo, $id, 'approved_it_manager', 'pending_it_manager', 'pending_it_manager', $comment);
+            self::addApproval($pdo, $id, $approvalStep, $actorId, 'approved', $comment);
+            self::addTimeline($pdo, $id, 'approved_' . $approvalStep, $storageStatus, $storageStatus, $comment);
 
             $usedAssetIds = [];
             foreach ($rows as $item) {
@@ -1562,8 +1658,8 @@ class RequestWorkflow
                         $pdo,
                         $id,
                         'fulfilled_asset_from_storage',
-                        'pending_it_manager',
-                        'pending_it_manager',
+                        $storageStatus,
+                        $storageStatus,
                         trim($itemLabel . ': ' . implode(', ', $assetNames) . ($comment !== '' ? ' | ' . $comment : ''))
                     );
                     continue;
@@ -1608,8 +1704,8 @@ class RequestWorkflow
                         $pdo,
                         $id,
                         'fulfilled_spare_part_from_storage',
-                        'pending_it_manager',
-                        'pending_it_manager',
+                        $storageStatus,
+                        $storageStatus,
                         trim($itemLabel . ': ' . (string) $part['name'] . ' x' . $requestedQuantity . ($comment !== '' ? ' | ' . $comment : ''))
                     );
                     continue;
@@ -1653,8 +1749,8 @@ class RequestWorkflow
                     $pdo,
                     $id,
                     'fulfilled_license_from_stock',
-                    'pending_it_manager',
-                    'pending_it_manager',
+                    $storageStatus,
+                    $storageStatus,
                     trim($itemLabel . ': ' . (string) $license['product_name'] . ' x' . $requestedQuantity . ($comment !== '' ? ' | ' . $comment : ''))
                 );
             }
@@ -1677,7 +1773,7 @@ class RequestWorkflow
                 'fulfillment_source' => 'storage',
             ]);
 
-            self::addTimeline($pdo, $id, 'marked_closed', 'pending_it_manager', 'closed', $comment);
+            self::addTimeline($pdo, $id, 'marked_closed', $storageStatus, 'closed', $comment);
 
             self::notifyUsers($pdo, [(int) $lockedRequest['requested_by_user_id']], 'request_fulfilled', [
                 'title' => __('requests.notifications.fulfilled_title', 'Request fulfilled from storage'),
@@ -1694,12 +1790,16 @@ class RequestWorkflow
 
     private static function normalizePayload(array $input): array
     {
+        $configuration = self::configuration();
+        $scenario = (string) ($input['scenario'] ?? ($configuration['default_scenario'] ?? 'general'));
+        $urgency = (string) ($input['urgency'] ?? ($configuration['default_urgency'] ?? 'normal'));
+
         return [
             'requested_for_employee_id' => trim((string) ($input['requested_for_employee_id'] ?? '')) === '' ? null : (int) $input['requested_for_employee_id'],
             'request_type' => 'asset',
-            'scenario' => in_array((string) ($input['scenario'] ?? 'general'), ['general', 'employee_onboarding', 'branch_deployment', 'replacement', 'stock_replenishment'], true)
-                ? (string) $input['scenario']
-                : 'general',
+            'scenario' => in_array($scenario, ['general', 'employee_onboarding', 'branch_deployment', 'replacement', 'stock_replenishment'], true)
+                ? $scenario
+                : (string) ($configuration['default_scenario'] ?? 'general'),
             'branch_id' => trim((string) ($input['branch_id'] ?? '')) === '' ? null : (int) $input['branch_id'],
             'category_id' => trim((string) ($input['category_id'] ?? '')) === '' ? null : (int) $input['category_id'],
             'title' => trim((string) ($input['title'] ?? '')),
@@ -1707,9 +1807,9 @@ class RequestWorkflow
             'justification' => trim((string) ($input['justification'] ?? '')),
             'quantity' => max(1, (int) ($input['quantity'] ?? 1)),
             'estimated_cost' => trim((string) ($input['estimated_cost'] ?? '')) === '' ? null : number_format((float) $input['estimated_cost'], 2, '.', ''),
-            'urgency' => in_array((string) ($input['urgency'] ?? 'normal'), ['low', 'normal', 'high', 'critical'], true)
-                ? (string) $input['urgency']
-                : 'normal',
+            'urgency' => in_array($urgency, ['low', 'normal', 'high', 'critical'], true)
+                ? $urgency
+                : (string) ($configuration['default_urgency'] ?? 'normal'),
             'needed_by_date' => trim((string) ($input['needed_by_date'] ?? '')) === '' ? null : trim((string) $input['needed_by_date']),
         ];
     }
@@ -2134,20 +2234,28 @@ class RequestWorkflow
         ]);
     }
 
-    private static function approvalStepForStatus(string $status): ?array
+    private static function approvalStepForStatus(string $status, array $request = []): ?array
     {
+        $configuration = self::configuration();
+        $needsManager = (bool) ($configuration['it_manager_required'] ?? true);
+        $needsFinanceApproval = self::financeApprovalRequired($request);
+
         return match ($status) {
             'pending_it' => [
                 'approval_step' => 'it',
                 'role' => 'technician',
-                'next_status' => 'pending_it_manager',
-                'next_pending_role' => 'it_manager',
+                'next_status' => $needsManager
+                    ? 'pending_it_manager'
+                    : ($needsFinanceApproval ? 'pending_finance' : 'approved'),
+                'next_pending_role' => $needsManager
+                    ? 'it_manager'
+                    : ($needsFinanceApproval ? 'finance' : 'none'),
             ],
             'pending_it_manager' => [
                 'approval_step' => 'it_manager',
                 'role' => 'it_manager',
-                'next_status' => 'pending_finance',
-                'next_pending_role' => 'finance',
+                'next_status' => $needsFinanceApproval ? 'pending_finance' : 'approved',
+                'next_pending_role' => $needsFinanceApproval ? 'finance' : 'none',
             ],
             'pending_finance' => [
                 'approval_step' => 'finance',
@@ -2157,6 +2265,21 @@ class RequestWorkflow
             ],
             default => null,
         };
+    }
+
+    private static function financeApprovalRequired(array $request): bool
+    {
+        $configuration = self::configuration();
+        $mode = (string) ($configuration['finance_mode'] ?? 'always');
+        if ($mode === 'disabled') {
+            return false;
+        }
+
+        if ($mode === 'threshold') {
+            return (float) ($request['estimated_cost'] ?? 0) >= (float) ($configuration['finance_threshold'] ?? 0);
+        }
+
+        return true;
     }
 
     private static function hasGlobalAccess(?array $user): bool

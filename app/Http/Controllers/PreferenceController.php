@@ -9,7 +9,8 @@ class PreferenceController extends Controller
     public function locale(string $locale): array
     {
         set_locale($locale);
-        $target = auth_user() ? route('dashboard') : route('login');
+        $fallback = auth_user() ? route('dashboard') : route('login');
+        $target = sanitize_redirect_target((string) ($_GET['redirect'] ?? ''), $fallback);
 
         return ['redirect' => $target];
     }
@@ -17,7 +18,8 @@ class PreferenceController extends Controller
     public function theme(): array
     {
         toggle_theme();
+        $fallback = auth_user() ? route('dashboard') : route('login');
 
-        return ['redirect' => auth_user() ? route('dashboard') : route('login')];
+        return ['redirect' => sanitize_redirect_target((string) ($_POST['redirect'] ?? ''), $fallback)];
     }
 }

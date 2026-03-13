@@ -45,6 +45,12 @@ $pdfFile = $form['files']['pdf'] ?? null;
     </div>
 </div>
 
+<?php if (!empty($form['has_missing_files'])): ?>
+    <div class="alert alert-warning mb-4">
+        <?= e(__('administrative_forms.missing_files', 'Some uploaded files are missing from storage. You can open the record and re-upload them.')) ?>
+    </div>
+<?php endif; ?>
+
 <div class="row g-3">
     <div class="col-lg-5">
         <div class="card h-100 ops-table-card">
@@ -55,6 +61,9 @@ $pdfFile = $form['files']['pdf'] ?? null;
                 </div>
             </div>
             <div class="card-body d-flex flex-column gap-3">
+                <?php if ($form['files'] === []): ?>
+                    <div class="text-muted"><?= e(__('administrative_forms.no_files_available', 'No files are currently available for this record.')) ?></div>
+                <?php endif; ?>
                 <?php foreach ($form['files'] as $file): ?>
                     <div class="border rounded-4 p-3 d-flex justify-content-between align-items-start gap-3 flex-wrap">
                         <div>

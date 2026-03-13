@@ -8,8 +8,8 @@
         <p class="text-muted mb-0">Sign in to manage assets, employees, branches, and movement records.</p>
     </div>
     <div class="d-flex gap-2">
-        <a class="surface-chip" href="<?= e(route('locale.switch', ['locale' => 'en'])) ?>"><?= e(__('lang.en', 'English')) ?></a>
-        <a class="surface-chip" href="<?= e(route('locale.switch', ['locale' => 'ar'])) ?>"><?= e(__('lang.ar', 'Arabic')) ?></a>
+        <a class="surface-chip" href="<?= e(route('locale.switch', ['locale' => 'en']) . '&redirect=' . rawurlencode($currentRequestUri)) ?>"><?= e(__('lang.en', 'English')) ?></a>
+        <a class="surface-chip" href="<?= e(route('locale.switch', ['locale' => 'ar']) . '&redirect=' . rawurlencode($currentRequestUri)) ?>"><?= e(__('lang.ar', 'Arabic')) ?></a>
     </div>
 </div>
 

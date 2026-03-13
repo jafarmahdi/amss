@@ -1,5 +1,7 @@
 <?php
 $lineItems = array_values((array) old('items', $requestItems));
+$defaultScenario = (string) ($workflowDefaults['default_scenario'] ?? 'general');
+$defaultUrgency = (string) ($workflowDefaults['default_urgency'] ?? 'normal');
 if ($lineItems === []) {
     $lineItems = [[
         'item_type' => 'asset',
@@ -58,7 +60,7 @@ if ($lineItems === []) {
                     <label class="form-label" for="scenario"><?= e(__('requests.scenario', 'Scenario')) ?></label>
                     <select class="form-select <?= has_error('scenario') ? 'is-invalid' : '' ?>" id="scenario" name="scenario" required>
                         <?php foreach ($scenarios as $scenarioKey => $scenarioLabel): ?>
-                            <option value="<?= e($scenarioKey) ?>" <?= ((string) old('scenario', $request['scenario'] ?? 'general') === $scenarioKey) ? 'selected' : '' ?>><?= e($scenarioLabel) ?></option>
+                            <option value="<?= e($scenarioKey) ?>" <?= ((string) old('scenario', $request['scenario'] ?? $defaultScenario) === $scenarioKey) ? 'selected' : '' ?>><?= e($scenarioLabel) ?></option>
                         <?php endforeach; ?>
                     </select>
                     <?php if (has_error('scenario')): ?><div class="invalid-feedback"><?= e((string) field_error('scenario')) ?></div><?php endif; ?>
@@ -67,7 +69,7 @@ if ($lineItems === []) {
                     <label class="form-label" for="urgency"><?= e(__('requests.urgency', 'Urgency')) ?></label>
                     <select class="form-select <?= has_error('urgency') ? 'is-invalid' : '' ?>" id="urgency" name="urgency" required>
                         <?php foreach ($urgencies as $urgency): ?>
-                            <option value="<?= e($urgency) ?>" <?= ((string) old('urgency', $request['urgency'] ?? 'normal') === $urgency) ? 'selected' : '' ?>><?= e(\App\Support\RequestWorkflow::urgencyLabel($urgency)) ?></option>
+                            <option value="<?= e($urgency) ?>" <?= ((string) old('urgency', $request['urgency'] ?? $defaultUrgency) === $urgency) ? 'selected' : '' ?>><?= e(\App\Support\RequestWorkflow::urgencyLabel($urgency)) ?></option>
                         <?php endforeach; ?>
                     </select>
                     <?php if (has_error('urgency')): ?><div class="invalid-feedback"><?= e((string) field_error('urgency')) ?></div><?php endif; ?>

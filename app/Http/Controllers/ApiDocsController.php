@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Support\DataRepository;
+
 class ApiDocsController extends Controller
 {
     public function index(): void
@@ -11,6 +13,7 @@ class ApiDocsController extends Controller
         $this->render('api.docs', [
             'pageTitle' => __('api.docs', 'API Documentation'),
             'specUrl' => route('api.spec'),
+            'integrationKey' => auth_user() !== null && can('settings.manage') ? DataRepository::integrationApiKey() : null,
         ]);
     }
 

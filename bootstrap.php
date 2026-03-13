@@ -114,6 +114,83 @@ function request_path(): string
     return rtrim($path, '/') ?: '/';
 }
 
+function current_request_uri(): string
+{
+    $uri = (string) ($_SERVER['REQUEST_URI'] ?? '');
+
+    if ($uri !== '') {
+        return $uri;
+    }
+
+    return base_url() . '/index.php';
+}
+
+function sanitize_redirect_target(?string $target, ?string $fallback = null): string
+{
+    $fallback ??= base_url() . '/index.php';
+    $target = trim((string) $target);
+
+    if ($target === '') {
+        return $fallback;
+    }
+
+    $parts = parse_url($target);
+
+    if ($parts === false || isset($parts['scheme']) || isset($parts['host'])) {
+        return $fallback;
+    }
+
+    $normalized = str_starts_with($target, '/') ? $target : '/' . ltrim($target, '/');
+    $baseUrl = base_url();
+
+    if ($baseUrl !== '' && !str_starts_with($normalized, $baseUrl . '/')) {
+        return $fallback;
+    }
+
+    return $normalized;
+}
+
+function app_log_path(string $channel = 'app'): string
+{
+    $channel = preg_replace('/[^A-Za-z0-9._-]/', '-', trim($channel)) ?: 'app';
+    return base_path('storage/logs/' . $channel . '.log');
+}
+
+function app_log(string $level, string $message, array $context = []): void
+{
+    $path = app_log_path('app');
+    $directory = dirname($path);
+
+    if (!is_dir($directory) && !mkdir($directory, 0777, true) && !is_dir($directory)) {
+        return;
+    }
+
+    $payload = [
+        'timestamp' => date('Y-m-d H:i:s'),
+        'level' => strtoupper(trim($level) !== '' ? $level : 'INFO'),
+        'message' => $message,
+    ];
+
+    if ($context !== []) {
+        $payload['context'] = $context;
+    }
+
+    @file_put_contents($path, json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . PHP_EOL, FILE_APPEND | LOCK_EX);
+}
+
+function app_log_exception(\Throwable $exception, array $context = []): void
+{
+    $context['exception'] = [
+        'type' => $exception::class,
+        'message' => $exception->getMessage(),
+        'file' => $exception->getFile(),
+        'line' => $exception->getLine(),
+        'trace' => $exception->getTraceAsString(),
+    ];
+
+    app_log('error', 'Unhandled exception', $context);
+}
+
 function e(?string $value): string
 {
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
@@ -205,6 +282,7 @@ function render(string $template, array $data = []): void
     $currentLocale = current_locale();
     $currentTheme = current_theme();
     $isRtl = is_rtl();
+    $currentRequestUri = current_request_uri();
 
     ob_start();
     require $viewFile;
@@ -269,7 +347,8 @@ function __(string $key, ?string $fallback = null): string
 {
     $locale = current_locale();
     $dictionary = translations()[$locale] ?? [];
-    return $dictionary[$key] ?? $fallback ?? $key;
+    $customTranslations = App\Support\DataRepository::customTranslations($locale);
+    return $customTranslations[$key] ?? $dictionary[$key] ?? $fallback ?? $key;
 }
 
 function setting(string $key, ?string $default = null): ?string
@@ -421,7 +500,10 @@ function route_permission(?string $routeName): ?string
         'settings.general.save' => 'settings.manage',
         'settings.auth.save' => 'settings.manage',
         'settings.security.save' => 'settings.manage',
+        'settings.translations.save' => 'settings.manage',
+        'settings.workflow.save' => 'settings.manage',
         'settings.permissions.save' => 'settings.manage',
+        'settings.permission-groups.save' => 'settings.manage',
         'settings.backups.create' => 'settings.manage',
         'tools.index' => 'settings.manage',
         'tools.export' => 'settings.manage',
@@ -517,5 +599,6 @@ function logout_user(): void
 
 function is_public_route(?string $routeName): bool
 {
-    return in_array($routeName, ['login', 'login.attempt', 'locale.switch'], true);
+    return in_array($routeName, ['install', 'install.run', 'login', 'login.attempt', 'locale.switch'], true)
+        || str_starts_with((string) $routeName, 'api.');
 }

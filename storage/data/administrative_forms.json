@@ -1,16 +1,16 @@
 {
-    "custom-20260313022515-4a9b33": {
-        "kind": "book",
-        "title": "Temporary Admin Book",
-        "category": "Tests",
-        "description": "Temporary runtime verification",
-        "related_route_name": "settings",
+    "asset-request": {
+        "kind": "form",
+        "title": "نموذج طلب أصل",
+        "category": "العمليات",
+        "description": "نموذج رسمي لطلب الأجهزة والحاسبات وما يرتبط بها من أصول للمستخدمين.",
+        "related_route_name": "requests.index",
         "files": {
             "pdf": {
-                "path": "storage\/app\/administrative-forms\/custom\/custom-20260313022515-4a9b33\/1773365115_0_admin-book-test.XXXXXX.pdf",
-                "download_name": "admin-book-test.XXXXXX.pdf"
+                "path": "storage/app/administrative-forms/custom/asset-request/1773372562_0____________________.pdf",
+                "download_name": "طلب صلاحية.pdf"
             }
         },
-        "source": "custom"
+        "source": "override"
     }
 }

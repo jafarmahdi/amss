@@ -74,6 +74,13 @@ class UploadStore
                 : @rename($tmpName, $targetPath);
 
             if (!$moved) {
+                app_log('error', 'Failed to move uploaded file', [
+                    'directory' => $directory,
+                    'relative_directory' => $relativeDirectory,
+                    'original_name' => $originalName,
+                    'tmp_name' => $tmpName,
+                    'target_path' => $targetPath,
+                ]);
                 continue;
             }
 

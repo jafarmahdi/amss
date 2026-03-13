@@ -29,6 +29,17 @@ $latestUpdate = $forms !== [] ? max(array_map(static fn (array $form): string =>
 </div>
 
 <div class="row g-3">
+    <?php if ($forms === []): ?>
+        <div class="col-12">
+            <div class="card ops-table-card">
+                <div class="card-body text-center py-5">
+                    <div class="fs-1 text-muted mb-3"><i class="bi bi-folder-x"></i></div>
+                    <h5 class="mb-2"><?= e(__('administrative_forms.empty_title', 'No administrative documents are available yet.')) ?></h5>
+                    <p class="text-muted mb-0"><?= e(__('administrative_forms.empty_hint', 'Upload a new book or form to start the internal library.')) ?></p>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
     <?php foreach ($forms as $form): ?>
         <div class="col-lg-4 col-md-6">
             <div class="card h-100 ops-table-card">
@@ -43,6 +54,11 @@ $latestUpdate = $forms !== [] ? max(array_map(static fn (array $form): string =>
                         <div class="fs-4 text-primary"><i class="bi bi-file-earmark-richtext"></i></div>
                     </div>
                     <p class="text-muted mb-4"><?= e($form['description']) ?></p>
+                    <?php if (!empty($form['has_missing_files'])): ?>
+                        <div class="alert alert-warning py-2 px-3 mb-3">
+                            <?= e(__('administrative_forms.missing_files', 'Some uploaded files are missing from storage. You can open the record and re-upload them.')) ?>
+                        </div>
+                    <?php endif; ?>
                     <div class="small text-muted mb-3">
                         <?= e(__('administrative_forms.related_to', 'Related workflow')) ?>:
                         <a href="<?= e($form['related_route']) ?>" class="text-decoration-none"><?= e($form['related_label']) ?></a>

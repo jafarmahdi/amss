@@ -11,7 +11,8 @@ $isPurchasedStep = ($nextWorkflowStatus === 'purchased');
 $isReceivedStep = ($nextWorkflowStatus === 'received');
 $assetLinkRequirementMet = !$containsAssetItems || $linkedAssetsCount >= max(1, (int) $assetRequestedQuantity);
 $canOfferNextStatus = !($nextWorkflowStatus === 'closed' && !$assetLinkRequirementMet);
-$approveButtonLabel = ($canFulfillRequest && (string) ($request['status'] ?? '') === 'pending_it_manager')
+$activeStorageFulfillmentStatus = $storageFulfillmentStatus ?? \App\Support\RequestWorkflow::storageFulfillmentStatus();
+$approveButtonLabel = ($canFulfillRequest && (string) ($request['status'] ?? '') === $activeStorageFulfillmentStatus)
     ? __('requests.approve_to_finance', 'Approve and Send to Finance')
     : __('requests.approve', 'Approve');
 $oldFulfillmentItems = old('items', []);
@@ -521,7 +522,7 @@ $oldFulfillmentItems = old('items', []);
                             <label class="form-label" for="comment"><?= e(__('common.notes', 'Notes')) ?></label>
                             <textarea class="form-control" id="comment" name="comment" rows="4" placeholder="<?= e(__('requests.comment_placeholder', 'Add an approval note or rejection reason.')) ?>"></textarea>
                         </div>
-                        <?php if ($canFulfillRequest && (string) ($request['status'] ?? '') === 'pending_it_manager'): ?>
+                        <?php if ($canFulfillRequest && (string) ($request['status'] ?? '') === $activeStorageFulfillmentStatus): ?>
                             <div class="alert alert-warning small py-2">
                                 <?= e(__('requests.approve_to_finance_help', 'Use this action only when the request needs purchasing. If all lines are available in stock, use Fulfill from Storage below.')) ?>
                             </div>

@@ -12,6 +12,7 @@ use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\InstallerController;
 use App\Http\Controllers\LicenseController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PreferenceController;
@@ -25,6 +26,8 @@ use App\Http\Controllers\UserController;
 use App\Support\Router;
 
 return static function (Router $router): void {
+    $router->get('/install', [InstallerController::class, 'index'], 'install');
+    $router->post('/install', [InstallerController::class, 'store'], 'install.run');
     $router->get('/login', [AuthController::class, 'showLogin'], 'login');
     $router->post('/login', [AuthController::class, 'login'], 'login.attempt');
     $router->post('/logout', [AuthController::class, 'logout'], 'logout');
@@ -34,6 +37,10 @@ return static function (Router $router): void {
     $router->get('/', [DashboardController::class, 'index'], 'dashboard');
     $router->get('/api/docs', [ApiDocsController::class, 'index'], 'api.docs');
     $router->get('/api/openapi.json', [ApiDocsController::class, 'spec'], 'api.spec');
+    $router->post('/api/v1/auth/login', [ApiController::class, 'authLogin'], 'api.auth.login');
+    $router->post('/api/v1/auth/logout', [ApiController::class, 'authLogout'], 'api.auth.logout');
+    $router->get('/api/v1/me', [ApiController::class, 'me'], 'api.me');
+    $router->get('/api/v1/notifications', [ApiController::class, 'notifications'], 'api.notifications');
     $router->get('/api/v1/dashboard', [ApiController::class, 'dashboard'], 'api.dashboard');
     $router->get('/api/v1/assets', [ApiController::class, 'assets'], 'api.assets');
     $router->get('/api/v1/assets/{id}', [ApiController::class, 'asset'], 'api.assets.show');
@@ -41,11 +48,17 @@ return static function (Router $router): void {
     $router->get('/api/v1/branches/{id}', [ApiController::class, 'branch'], 'api.branches.show');
     $router->get('/api/v1/categories', [ApiController::class, 'categories'], 'api.categories');
     $router->get('/api/v1/employees', [ApiController::class, 'employees'], 'api.employees');
+    $router->get('/api/v1/employees/lookup', [ApiController::class, 'employeeLookup'], 'api.employees.lookup');
     $router->get('/api/v1/employees/{id}', [ApiController::class, 'employee'], 'api.employees.show');
     $router->get('/api/v1/licenses', [ApiController::class, 'licenses'], 'api.licenses');
     $router->get('/api/v1/licenses/{id}', [ApiController::class, 'license'], 'api.licenses.show');
     $router->get('/api/v1/spare-parts', [ApiController::class, 'spareParts'], 'api.spare_parts');
     $router->get('/api/v1/reports/summary', [ApiController::class, 'reports'], 'api.reports');
+    $router->get('/api/v1/requests', [ApiController::class, 'requests'], 'api.requests');
+    $router->post('/api/v1/requests', [ApiController::class, 'createRequest'], 'api.requests.store');
+    $router->get('/api/v1/requests/{id}', [ApiController::class, 'request'], 'api.requests.show');
+    $router->get('/api/v1/fingerprint/employees', [ApiController::class, 'fingerprintEmployees'], 'api.fingerprint.employees');
+    $router->post('/api/v1/fingerprint/events', [ApiController::class, 'fingerprintEventStore'], 'api.fingerprint.events');
     $router->resource('requests', RequestController::class);
     $router->post('/requests/{id}/submit', [RequestController::class, 'submit'], 'requests.submit');
     $router->post('/requests/{id}/decision', [RequestController::class, 'decision'], 'requests.decision');
@@ -94,9 +107,12 @@ return static function (Router $router): void {
     $router->resource('users', UserController::class);
     $router->get('/settings', [SystemController::class, 'settings'], 'settings');
     $router->post('/settings/general', [SystemController::class, 'saveGeneral'], 'settings.general.save');
+    $router->post('/settings/translations', [SystemController::class, 'saveTranslations'], 'settings.translations.save');
     $router->post('/settings/auth', [SystemController::class, 'saveAuth'], 'settings.auth.save');
     $router->post('/settings/security', [SystemController::class, 'saveSecurity'], 'settings.security.save');
+    $router->post('/settings/workflow', [SystemController::class, 'saveWorkflow'], 'settings.workflow.save');
     $router->post('/settings/permissions', [SystemController::class, 'savePermissions'], 'settings.permissions.save');
+    $router->post('/settings/permission-groups', [SystemController::class, 'savePermissionGroup'], 'settings.permission-groups.save');
     $router->post('/settings/backups/create', [SystemController::class, 'createBackup'], 'settings.backups.create');
     $router->get('/tools/import-export', [ToolsController::class, 'index'], 'tools.index');
     $router->get('/tools/import-export/{dataset}/export', [ToolsController::class, 'export'], 'tools.export');

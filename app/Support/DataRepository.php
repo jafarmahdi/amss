@@ -1650,6 +1650,63 @@ class DataRepository
         return is_array($row) ? $row : null;
     }
 
+    public static function issueApiToken(int $userId): string
+    {
+        $pdo = Database::connect();
+        $token = bin2hex(random_bytes(32));
+        $statement = $pdo->prepare('UPDATE users SET remember_token = :remember_token, updated_at = NOW() WHERE id = :id');
+        $statement->execute([
+            'id' => $userId,
+            'remember_token' => hash('sha256', $token),
+        ]);
+
+        return $token;
+    }
+
+    public static function findUserByApiToken(string $token): ?array
+    {
+        $token = trim($token);
+        if ($token === '') {
+            return null;
+        }
+
+        $pdo = Database::connect();
+        $statement = $pdo->prepare(
+            'SELECT id, name, email, role, status, locale, theme, password
+             FROM users
+             WHERE remember_token = :remember_token
+             LIMIT 1'
+        );
+        $statement->execute([
+            'remember_token' => hash('sha256', $token),
+        ]);
+        $row = $statement->fetch();
+
+        return is_array($row) ? $row : null;
+    }
+
+    public static function revokeApiToken(int $userId): void
+    {
+        $pdo = Database::connect();
+        $statement = $pdo->prepare('UPDATE users SET remember_token = NULL, updated_at = NOW() WHERE id = :id');
+        $statement->execute(['id' => $userId]);
+    }
+
+    public static function integrationApiKey(): string
+    {
+        $settings = self::systemSettings();
+        $key = trim((string) ($settings['api_integration_key'] ?? ''));
+
+        if ($key !== '') {
+            return $key;
+        }
+
+        $key = bin2hex(random_bytes(24));
+        self::saveSystemSettings(['api_integration_key' => $key]);
+
+        return $key;
+    }
+
     public static function createUser(array $input): int
     {
         $pdo = Database::connect();
@@ -1722,6 +1779,20 @@ class DataRepository
             'ssl_chain_path' => '',
             'backup_retention_days' => '14',
             'backup_include_uploads' => '1',
+            'custom_permission_groups' => '[]',
+            'custom_translations_en' => '{}',
+            'custom_translations_ar' => '{}',
+            'request_workflow_it_manager_required' => '1',
+            'request_workflow_allow_storage_fulfillment' => '1',
+            'request_workflow_finance_mode' => 'always',
+            'request_workflow_finance_threshold' => '0',
+            'request_workflow_auto_close_on_receive' => '0',
+            'request_default_scenario' => 'general',
+            'request_default_urgency' => 'normal',
+            'api_enabled' => '1',
+            'mobile_api_enabled' => '1',
+            'fingerprint_api_enabled' => '1',
+            'api_integration_key' => '',
         ];
 
         $pdo = Database::connect();
@@ -1765,6 +1836,36 @@ class DataRepository
                 'setting_value' => is_array($value) ? json_encode($value, JSON_UNESCAPED_UNICODE) : (string) $value,
             ]);
         }
+    }
+
+    public static function customTranslations(string $locale): array
+    {
+        static $cache = [];
+
+        $locale = in_array($locale, ['en', 'ar'], true) ? $locale : 'en';
+        if (isset($cache[$locale])) {
+            return $cache[$locale];
+        }
+
+        $settings = self::systemSettings();
+        $decoded = json_decode((string) ($settings['custom_translations_' . $locale] ?? '{}'), true);
+        if (!is_array($decoded)) {
+            $cache[$locale] = [];
+            return $cache[$locale];
+        }
+
+        $translations = [];
+        foreach ($decoded as $key => $value) {
+            $key = trim((string) $key);
+            if ($key === '') {
+                continue;
+            }
+
+            $translations[$key] = trim((string) $value);
+        }
+
+        $cache[$locale] = $translations;
+        return $cache[$locale];
     }
 
     public static function spareParts(): array
@@ -2460,6 +2561,16 @@ class DataRepository
             return [];
         }
 
+        return self::notificationsForUser((int) $user['id'], $limit);
+    }
+
+    public static function notificationsForUser(int $userId, int $limit = 8): array
+    {
+        $pdo = Database::connect();
+        if (!$pdo instanceof PDO || $userId <= 0) {
+            return [];
+        }
+
         $statement = $pdo->prepare(
             "SELECT id, type, data, read_at, DATE_FORMAT(created_at, '%Y-%m-%d %H:%i') AS created_at
              FROM notifications
@@ -2467,7 +2578,7 @@ class DataRepository
              ORDER BY id DESC
              LIMIT :limit"
         );
-        $statement->bindValue(':user_id', (int) $user['id'], PDO::PARAM_INT);
+        $statement->bindValue(':user_id', $userId, PDO::PARAM_INT);
         $statement->bindValue(':limit', $limit, PDO::PARAM_INT);
         $statement->execute();
         $rows = $statement->fetchAll() ?: [];
@@ -2686,8 +2797,18 @@ class DataRepository
             return 0;
         }
 
+        return self::unreadNotificationsCountForUser((int) $user['id']);
+    }
+
+    public static function unreadNotificationsCountForUser(int $userId): int
+    {
+        $pdo = Database::connect();
+        if (!$pdo instanceof PDO || $userId <= 0) {
+            return 0;
+        }
+
         $statement = $pdo->prepare('SELECT COUNT(*) FROM notifications WHERE user_id = :user_id AND read_at IS NULL');
-        $statement->execute(['user_id' => (int) $user['id']]);
+        $statement->execute(['user_id' => $userId]);
         return (int) $statement->fetchColumn();
     }
 
@@ -2701,6 +2822,91 @@ class DataRepository
 
         $statement = $pdo->prepare('UPDATE notifications SET read_at = NOW() WHERE user_id = :user_id AND read_at IS NULL');
         $statement->execute(['user_id' => (int) $user['id']]);
+    }
+
+    public static function findEmployeeByFingerprintId(string $fingerprintId): ?array
+    {
+        return self::employeeByIdentifier('fingerprint_id', trim($fingerprintId));
+    }
+
+    public static function findEmployeeByEmployeeCode(string $employeeCode): ?array
+    {
+        return self::employeeByIdentifier('employee_code', trim($employeeCode));
+    }
+
+    public static function findEmployeeByCompanyEmail(string $companyEmail): ?array
+    {
+        $normalized = self::normalizeCompanyEmail($companyEmail);
+        return self::employeeByIdentifier('company_email', trim($normalized));
+    }
+
+    public static function fingerprintEmployees(): array
+    {
+        $pdo = Database::connect();
+        if (!$pdo instanceof PDO) {
+            return [];
+        }
+
+        $rows = $pdo->query(
+            "SELECT employees.id,
+                    employees.name,
+                    employees.employee_code,
+                    COALESCE(employees.company_email, '') AS company_email,
+                    COALESCE(employees.fingerprint_id, '') AS fingerprint_id,
+                    COALESCE(employees.department, '') AS department,
+                    COALESCE(employees.job_title, '') AS job_title,
+                    employees.status,
+                    employees.branch_id,
+                    COALESCE(branches.name, '') AS branch_name,
+                    DATE_FORMAT(employees.updated_at, '%Y-%m-%d %H:%i:%s') AS updated_at
+             FROM employees
+             LEFT JOIN branches ON branches.id = employees.branch_id
+             WHERE employees.status = 'active'
+             ORDER BY employees.name ASC"
+        )->fetchAll() ?: [];
+
+        return array_values(array_filter(array_map(static function (array $row): array {
+            $row['id'] = (int) $row['id'];
+            $row['branch_id'] = $row['branch_id'] === null ? null : (int) $row['branch_id'];
+            return $row;
+        }, $rows), static fn (array $row): bool => $row['fingerprint_id'] !== '' || $row['employee_code'] !== '' || $row['company_email'] !== ''));
+    }
+
+    public static function recordFingerprintEvent(array $payload): array
+    {
+        $path = base_path('storage/data/fingerprint_events.json');
+        $directory = dirname($path);
+
+        if (!is_dir($directory) && !mkdir($directory, 0777, true) && !is_dir($directory)) {
+            throw new \RuntimeException('Unable to prepare fingerprint events storage directory.');
+        }
+
+        if (!is_file($path) && @file_put_contents($path, "[]\n", LOCK_EX) === false) {
+            throw new \RuntimeException('Unable to initialize fingerprint events storage.');
+        }
+
+        @chmod($path, 0666);
+
+        $contents = file_get_contents($path);
+        $rows = json_decode($contents !== false ? $contents : '[]', true);
+        if (!is_array($rows)) {
+            $rows = [];
+        }
+
+        $payload['id'] = $payload['id'] ?? ('fp-' . date('YmdHis') . '-' . substr(bin2hex(random_bytes(4)), 0, 8));
+        $payload['received_at'] = $payload['received_at'] ?? date('Y-m-d H:i:s');
+        $rows[] = $payload;
+
+        if (count($rows) > 1000) {
+            $rows = array_slice($rows, -1000);
+        }
+
+        $written = @file_put_contents($path, json_encode($rows, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES), LOCK_EX);
+        if ($written === false) {
+            throw new \RuntimeException('Unable to write fingerprint event log.');
+        }
+
+        return $payload;
     }
 
     public static function refreshSystemNotifications(): void
@@ -3099,45 +3305,81 @@ class DataRepository
         return $results;
     }
 
+    public static function permissionGroups(): array
+    {
+        return array_replace(self::builtInPermissionGroups(), self::customPermissionGroups());
+    }
+
+    public static function customPermissionGroups(): array
+    {
+        $settings = self::systemSettings();
+        $decoded = json_decode((string) ($settings['custom_permission_groups'] ?? '[]'), true);
+
+        if (!is_array($decoded)) {
+            return [];
+        }
+
+        $groups = [];
+
+        foreach ($decoded as $group) {
+            if (!is_array($group)) {
+                continue;
+            }
+
+            $groupKey = trim((string) ($group['key'] ?? ''));
+            $label = trim((string) ($group['label'] ?? ''));
+
+            if ($groupKey === '' || $label === '') {
+                continue;
+            }
+
+            $permissions = [];
+            foreach ((array) ($group['permissions'] ?? []) as $permissionKey => $permissionValue) {
+                if (is_array($permissionValue)) {
+                    $resolvedKey = trim((string) ($permissionValue['key'] ?? $permissionKey));
+                    $resolvedLabel = trim((string) ($permissionValue['label'] ?? ''));
+                } else {
+                    $resolvedKey = is_string($permissionKey) ? trim($permissionKey) : '';
+                    $resolvedLabel = trim((string) $permissionValue);
+                }
+
+                if ($resolvedKey === '' || $resolvedLabel === '') {
+                    continue;
+                }
+
+                $permissions[$resolvedKey] = $resolvedLabel;
+            }
+
+            $groups[$groupKey] = [
+                'key' => $groupKey,
+                'label' => $label,
+                'description' => trim((string) ($group['description'] ?? '')),
+                'permissions' => $permissions,
+                'custom' => true,
+            ];
+        }
+
+        return $groups;
+    }
+
     public static function permissionDefinitions(): array
     {
-        return [
-            'dashboard.view' => __('perm.dashboard_view', 'View dashboard'),
-            'requests.view' => __('perm.requests_view', 'View requests'),
-            'requests.manage' => __('perm.requests_manage', 'Create and manage requests'),
-            'requests.approve' => __('perm.requests_approve', 'Approve requests'),
-            'assets.view' => __('perm.assets_view', 'View assets'),
-            'assets.manage' => __('perm.assets_manage', 'Manage assets'),
-            'assets.move' => __('perm.assets_move', 'Move assets'),
-            'branches.view' => __('perm.branches_view', 'View branches'),
-            'branches.manage' => __('perm.branches_manage', 'Manage branches'),
-            'categories.view' => __('perm.categories_view', 'View categories'),
-            'categories.manage' => __('perm.categories_manage', 'Manage categories'),
-            'employees.view' => __('perm.employees_view', 'View employees'),
-            'employees.manage' => __('perm.employees_manage', 'Manage employees'),
-            'licenses.view' => __('perm.licenses_view', 'View licenses'),
-            'licenses.manage' => __('perm.licenses_manage', 'Manage licenses'),
-            'spare_parts.view' => __('perm.spare_parts_view', 'View spare parts'),
-            'spare_parts.manage' => __('perm.spare_parts_manage', 'Manage spare parts'),
-            'storage.view' => __('perm.storage_view', 'View storage'),
-            'forms.view' => __('perm.forms_view', 'View administrative forms'),
-            'forms.manage' => __('perm.forms_manage', 'Manage administrative forms'),
-            'reports.view' => __('perm.reports_view', 'View reports'),
-            'reports.export' => __('perm.reports_export', 'Export reports'),
-            'users.view' => __('perm.users_view', 'View users'),
-            'users.manage' => __('perm.users_manage', 'Manage users'),
-            'audit.view' => __('perm.audit_view', 'View audit logs'),
-            'settings.manage' => __('perm.settings_manage', 'Manage settings'),
-            'system.check' => __('perm.system_check', 'View system check'),
-            'api.docs' => __('perm.api_docs', 'View API docs'),
-        ];
+        $definitions = [];
+
+        foreach (self::permissionGroups() as $group) {
+            foreach ((array) ($group['permissions'] ?? []) as $permissionKey => $label) {
+                $definitions[$permissionKey] = (string) $label;
+            }
+        }
+
+        return $definitions;
     }
 
     public static function defaultRolePermissions(): array
     {
         $all = array_fill_keys(array_keys(self::permissionDefinitions()), true);
 
-        return [
+        return self::normalizeRolePermissions([
             'admin' => $all,
             'it_manager' => [
                 'dashboard.view' => true,
@@ -3259,7 +3501,7 @@ class DataRepository
                 'system.check' => false,
                 'api.docs' => true,
             ],
-        ];
+        ]);
     }
 
     public static function rolePermissions(): array
@@ -3276,10 +3518,17 @@ class DataRepository
         }
         $matrix = self::defaultRolePermissions();
         foreach ($rows as $row) {
-            $matrix[(string) $row['role_name']][(string) $row['permission_key']] = (int) $row['allowed'] === 1;
+            $roleName = (string) $row['role_name'];
+            $permissionKey = (string) $row['permission_key'];
+
+            if (!isset($matrix[$roleName]) || !array_key_exists($permissionKey, $matrix[$roleName])) {
+                continue;
+            }
+
+            $matrix[$roleName][$permissionKey] = (int) $row['allowed'] === 1;
         }
 
-        return $matrix;
+        return self::normalizeRolePermissions($matrix);
     }
 
     public static function roleHasPermission(string $role, string $permission): bool
@@ -3294,6 +3543,8 @@ class DataRepository
         if (!$pdo instanceof PDO) {
             return;
         }
+
+        $matrix = self::normalizeRolePermissions($matrix);
 
         $pdo->beginTransaction();
         try {
@@ -3313,6 +3564,111 @@ class DataRepository
             $pdo->rollBack();
             throw $exception;
         }
+    }
+
+    private static function builtInPermissionGroups(): array
+    {
+        return [
+            'platform' => [
+                'key' => 'platform',
+                'label' => __('settings.permission_group_platform', 'Platform & system'),
+                'description' => __('settings.permission_group_platform_desc', 'Dashboard access, system tools, and platform-wide controls.'),
+                'permissions' => [
+                    'dashboard.view' => __('perm.dashboard_view', 'View dashboard'),
+                    'settings.manage' => __('perm.settings_manage', 'Manage settings'),
+                    'system.check' => __('perm.system_check', 'View system check'),
+                    'api.docs' => __('perm.api_docs', 'View API docs'),
+                ],
+                'custom' => false,
+            ],
+            'requests' => [
+                'key' => 'requests',
+                'label' => __('settings.permission_group_requests', 'Requests'),
+                'description' => __('settings.permission_group_requests_desc', 'Control the request lifecycle from submission to approvals.'),
+                'permissions' => [
+                    'requests.view' => __('perm.requests_view', 'View requests'),
+                    'requests.manage' => __('perm.requests_manage', 'Create and manage requests'),
+                    'requests.approve' => __('perm.requests_approve', 'Approve requests'),
+                ],
+                'custom' => false,
+            ],
+            'assets' => [
+                'key' => 'assets',
+                'label' => __('settings.permission_group_assets', 'Assets'),
+                'description' => __('settings.permission_group_assets_desc', 'Asset visibility, editing, and movement permissions.'),
+                'permissions' => [
+                    'assets.view' => __('perm.assets_view', 'View assets'),
+                    'assets.manage' => __('perm.assets_manage', 'Manage assets'),
+                    'assets.move' => __('perm.assets_move', 'Move assets'),
+                ],
+                'custom' => false,
+            ],
+            'directory' => [
+                'key' => 'directory',
+                'label' => __('settings.permission_group_directory', 'Directory & users'),
+                'description' => __('settings.permission_group_directory_desc', 'Branches, categories, employees, and user administration.'),
+                'permissions' => [
+                    'branches.view' => __('perm.branches_view', 'View branches'),
+                    'branches.manage' => __('perm.branches_manage', 'Manage branches'),
+                    'categories.view' => __('perm.categories_view', 'View categories'),
+                    'categories.manage' => __('perm.categories_manage', 'Manage categories'),
+                    'employees.view' => __('perm.employees_view', 'View employees'),
+                    'employees.manage' => __('perm.employees_manage', 'Manage employees'),
+                    'users.view' => __('perm.users_view', 'View users'),
+                    'users.manage' => __('perm.users_manage', 'Manage users'),
+                ],
+                'custom' => false,
+            ],
+            'inventory' => [
+                'key' => 'inventory',
+                'label' => __('settings.permission_group_inventory', 'Inventory & forms'),
+                'description' => __('settings.permission_group_inventory_desc', 'Storage stock, licenses, spare parts, and administrative forms.'),
+                'permissions' => [
+                    'licenses.view' => __('perm.licenses_view', 'View licenses'),
+                    'licenses.manage' => __('perm.licenses_manage', 'Manage licenses'),
+                    'spare_parts.view' => __('perm.spare_parts_view', 'View spare parts'),
+                    'spare_parts.manage' => __('perm.spare_parts_manage', 'Manage spare parts'),
+                    'storage.view' => __('perm.storage_view', 'View storage'),
+                    'forms.view' => __('perm.forms_view', 'View administrative forms'),
+                    'forms.manage' => __('perm.forms_manage', 'Manage administrative forms'),
+                ],
+                'custom' => false,
+            ],
+            'analytics' => [
+                'key' => 'analytics',
+                'label' => __('settings.permission_group_analytics', 'Reports & audit'),
+                'description' => __('settings.permission_group_analytics_desc', 'Reporting, exports, and audit trail access.'),
+                'permissions' => [
+                    'reports.view' => __('perm.reports_view', 'View reports'),
+                    'reports.export' => __('perm.reports_export', 'Export reports'),
+                    'audit.view' => __('perm.audit_view', 'View audit logs'),
+                ],
+                'custom' => false,
+            ],
+        ];
+    }
+
+    private static function normalizeRolePermissions(array $matrix): array
+    {
+        $permissionKeys = array_keys(self::permissionDefinitions());
+
+        foreach ($matrix as $roleName => $permissions) {
+            foreach ($permissionKeys as $permissionKey) {
+                if (!array_key_exists($permissionKey, $permissions)) {
+                    $matrix[$roleName][$permissionKey] = $roleName === 'admin';
+                }
+            }
+        }
+
+        $normalized = [];
+
+        foreach ($matrix as $roleName => $permissions) {
+            foreach ($permissionKeys as $permissionKey) {
+                $normalized[$roleName][$permissionKey] = (bool) ($permissions[$permissionKey] ?? ($roleName === 'admin'));
+            }
+        }
+
+        return $normalized;
     }
 
     public static function auditSummary(array $filters = []): array
@@ -4214,6 +4570,7 @@ class DataRepository
     {
         $files = [];
         $latestUpdate = '';
+        $missingFiles = [];
         foreach ((array) ($definition['files'] ?? []) as $variant => $file) {
             $path = trim((string) ($file['path'] ?? ''));
             if ($path === '') {
@@ -4225,6 +4582,23 @@ class DataRepository
                 : base_path($path);
 
             if (!is_file($absolutePath)) {
+                $recoveredPath = self::recoverAdministrativeFormFilePath($id, $variant, $path);
+                if ($recoveredPath !== null) {
+                    $path = $recoveredPath;
+                    $absolutePath = base_path($path);
+                }
+            }
+
+            if (!is_file($absolutePath)) {
+                $missingFiles[] = [
+                    'variant' => (string) $variant,
+                    'path' => $path,
+                ];
+                app_log('warning', 'Administrative form file is missing on disk', [
+                    'form_id' => $id,
+                    'variant' => (string) $variant,
+                    'path' => $path,
+                ]);
                 continue;
             }
 
@@ -4249,10 +4623,6 @@ class DataRepository
             ];
         }
 
-        if ($files === []) {
-            return null;
-        }
-
         $relatedRouteName = self::administrativeFormRelatedRouteName((string) ($definition['related_route_name'] ?? 'dashboard'));
         $routeOptions = self::administrativeFormRouteOptions();
         $kind = trim((string) ($definition['kind'] ?? 'form')) === 'book' ? 'book' : 'form';
@@ -4273,11 +4643,66 @@ class DataRepository
             'files_count' => count($files),
             'primary_variant' => array_key_first($files),
             'updated_at' => $latestUpdate,
+            'has_missing_files' => $missingFiles !== [],
+            'missing_files_count' => count($missingFiles),
             'is_builtin' => isset(self::baseAdministrativeFormDefinitions()[$id]),
             'is_custom' => (string) ($definition['source'] ?? '') === 'custom',
             'has_override' => (string) ($definition['source'] ?? '') === 'override',
             'is_editable' => true,
         ];
+    }
+
+    private static function recoverAdministrativeFormFilePath(string $id, string $variant, string $path): ?string
+    {
+        if (!self::isCustomAdministrativeStoragePath($path)) {
+            return null;
+        }
+
+        $absolutePath = base_path($path);
+        $directory = dirname($absolutePath);
+        if (!is_dir($directory)) {
+            return null;
+        }
+
+        $expectedExtension = strtolower((string) pathinfo($absolutePath, PATHINFO_EXTENSION));
+        $candidates = array_values(array_filter(glob($directory . '/*') ?: [], 'is_file'));
+        if ($candidates === []) {
+            return null;
+        }
+
+        $match = null;
+        if ($expectedExtension !== '') {
+            foreach ($candidates as $candidate) {
+                if (strtolower((string) pathinfo($candidate, PATHINFO_EXTENSION)) === $expectedExtension) {
+                    $match = $candidate;
+                    break;
+                }
+            }
+        }
+
+        if ($match === null && count($candidates) === 1) {
+            $match = $candidates[0];
+        }
+
+        if ($match === null) {
+            return null;
+        }
+
+        $relativePath = ltrim(str_replace(base_path(), '', $match), '/');
+        $entries = self::administrativeFormEntries();
+        if (isset($entries[$id]['files'][$variant]) && is_array($entries[$id]['files'][$variant])) {
+            $entries[$id]['files'][$variant]['path'] = $relativePath;
+            self::saveAdministrativeFormEntries($entries);
+        }
+
+        app_log('info', 'Recovered administrative form file path from storage', [
+            'form_id' => $id,
+            'variant' => $variant,
+            'old_path' => $path,
+            'new_path' => $relativePath,
+        ]);
+
+        return $relativePath;
     }
 
     private static function administrativeFormRelatedRouteName(string $routeName): string
@@ -4305,7 +4730,18 @@ class DataRepository
             throw new \RuntimeException('Unable to create administrative forms metadata directory.');
         }
 
-        file_put_contents($path, json_encode($entries, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        @chmod(base_path('storage'), 0777);
+        @chmod($directory, 0777);
+        if (is_file($path)) {
+            @chmod($path, 0666);
+        }
+
+        $written = file_put_contents($path, json_encode($entries, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+        if ($written === false) {
+            throw new \RuntimeException('Unable to write administrative forms metadata file: ' . $path);
+        }
+
+        @chmod($path, 0666);
     }
 
     private static function administrativeFormsEntriesPath(): string
@@ -4571,6 +5007,47 @@ class DataRepository
         ]);
         $value = $statement->fetchColumn();
         return $value === false ? null : (int) $value;
+    }
+
+    private static function employeeByIdentifier(string $column, string $value): ?array
+    {
+        if ($value === '' || !in_array($column, ['fingerprint_id', 'employee_code', 'company_email'], true)) {
+            return null;
+        }
+
+        $pdo = Database::connect();
+        if (!$pdo instanceof PDO) {
+            return null;
+        }
+
+        $statement = $pdo->prepare(
+            "SELECT employees.id,
+                    employees.name,
+                    employees.employee_code,
+                    COALESCE(employees.company_email, '') AS company_email,
+                    COALESCE(employees.fingerprint_id, '') AS fingerprint_id,
+                    COALESCE(employees.department, '') AS department,
+                    COALESCE(employees.job_title, '') AS job_title,
+                    COALESCE(employees.phone, '') AS phone,
+                    COALESCE(branches.name, '') AS branch_name,
+                    employees.branch_id,
+                    employees.status
+             FROM employees
+             LEFT JOIN branches ON branches.id = employees.branch_id
+             WHERE employees.{$column} = :value
+             LIMIT 1"
+        );
+        $statement->execute(['value' => $value]);
+        $row = $statement->fetch();
+
+        if (!is_array($row)) {
+            return null;
+        }
+
+        $row['id'] = (int) $row['id'];
+        $row['branch_id'] = $row['branch_id'] === null ? null : (int) $row['branch_id'];
+
+        return $row;
     }
 
     private static function nullableDate(mixed $value): ?string

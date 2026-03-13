@@ -61,7 +61,18 @@ class AdministrativeFormController extends Controller
             return $this->validationRedirect('administrative-forms.create', $errors, $_POST);
         }
 
-        $formId = DataRepository::createAdministrativeForm($_POST, $files);
+        try {
+            $formId = DataRepository::createAdministrativeForm($_POST, $files);
+        } catch (\Throwable $exception) {
+            app_log_exception($exception, [
+                'area' => 'administrative_forms.store',
+                'title' => (string) ($_POST['title'] ?? ''),
+                'kind' => (string) ($_POST['kind'] ?? ''),
+            ]);
+            set_old_input($_POST);
+            flash('error', __('administrative_forms.upload_failed', 'The document was saved with an upload problem. Check the error log and re-upload the file if it is missing.'));
+            return $this->redirect('administrative-forms.create');
+        }
         DataRepository::logAudit('create', 'administrative_forms', null, null, [
             'form' => $formId,
             'kind' => $_POST['kind'] ?? 'book',
@@ -146,7 +157,18 @@ class AdministrativeFormController extends Controller
             return $this->validationRedirect('administrative-forms.edit', $errors, $_POST, ['id' => $id]);
         }
 
-        DataRepository::updateAdministrativeForm($id, $_POST, $files, $removeVariants);
+        try {
+            DataRepository::updateAdministrativeForm($id, $_POST, $files, $removeVariants);
+        } catch (\Throwable $exception) {
+            app_log_exception($exception, [
+                'area' => 'administrative_forms.update',
+                'form_id' => $id,
+                'title' => (string) ($_POST['title'] ?? ''),
+            ]);
+            set_old_input($_POST);
+            flash('error', __('administrative_forms.upload_failed', 'The document was saved with an upload problem. Check the error log and re-upload the file if it is missing.'));
+            return $this->redirect('administrative-forms.edit', ['id' => $id]);
+        }
         DataRepository::logAudit('update', 'administrative_forms', null, ['form' => $id], [
             'form' => $id,
             'title' => $_POST['title'] ?? '',

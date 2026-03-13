@@ -63,7 +63,7 @@
                 <button type="submit" class="btn btn-outline-secondary w-100"><?= e(__('common.search', 'Search')) ?></button>
             </div>
             <div class="col-12 d-flex justify-content-between align-items-center flex-wrap gap-2">
-                <span class="surface-chip"><i class="bi bi-list-check"></i> <?= e((string) count($assets)) ?> <?= e(__('assets.visible', 'visible assets')) ?></span>
+                <span class="surface-chip"><i class="bi bi-list-check"></i> <span id="assets-visible-count"><?= e((string) count($assets)) ?></span> <?= e(__('assets.visible', 'visible assets')) ?></span>
                 <div class="d-flex gap-2 flex-wrap">
                     <?php $xlsParams = ['route' => '/assets/export', 'format' => 'xls', 'archived' => $archivedMode ? '1' : '0'] + $filters; ?>
                     <?php $pdfParams = ['route' => '/assets/export', 'format' => 'pdf', 'archived' => $archivedMode ? '1' : '0'] + $filters; ?>
@@ -160,6 +160,9 @@
                             </td>
                         </tr>
                     <?php endforeach; ?>
+                    <tr id="assets-live-empty" class="d-none">
+                        <td colspan="9" class="text-center text-muted py-5"><?= e(__('assets.no_results', 'No assets matched the selected filters.')) ?></td>
+                    </tr>
                 <?php else: ?>
                     <tr>
                         <td colspan="9" class="text-center text-muted py-5"><?= e(__('assets.no_results', 'No assets matched the selected filters.')) ?></td>
@@ -196,6 +199,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var exportPdf = document.getElementById('assets-export-pdf');
     var rows = document.querySelectorAll('#assets-live-table tbody tr[data-search]');
     var selectAll = document.getElementById('assets-select-all');
+    var visibleCount = document.getElementById('assets-visible-count');
+    var emptyRow = document.getElementById('assets-live-empty');
 
     function applyLiveAssetFilter() {
         var term = (searchInput && searchInput.value || '').toLowerCase().trim();
@@ -203,6 +208,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var category = categoryInput ? categoryInput.value : '';
         var branch = branchInput ? branchInput.value : '';
         var stage = stageInput ? stageInput.value : '';
+        var matchedRows = 0;
 
         rows.forEach(function (row) {
             var show = (!term || row.dataset.search.indexOf(term) !== -1)
@@ -211,7 +217,28 @@ document.addEventListener('DOMContentLoaded', function () {
                 && (!branch || row.dataset.branch === branch)
                 && (!stage || row.dataset.stage === stage);
             row.style.display = show ? '' : 'none';
+
+            var checkbox = row.querySelector('.asset-select-row');
+            if (checkbox && !show) {
+                checkbox.checked = false;
+            }
+
+            if (show) {
+                matchedRows += 1;
+            }
         });
+
+        if (visibleCount) {
+            visibleCount.textContent = String(matchedRows);
+        }
+
+        if (emptyRow && rows.length > 0) {
+            emptyRow.classList.toggle('d-none', matchedRows !== 0);
+        }
+
+        if (selectAll) {
+            selectAll.checked = false;
+        }
 
         [exportXls, exportPdf].forEach(function (link) {
             if (!link) {
@@ -237,8 +264,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (selectAll) {
         selectAll.addEventListener('change', function () {
-            document.querySelectorAll('.asset-select-row').forEach(function (checkbox) {
-                checkbox.checked = selectAll.checked;
+            rows.forEach(function (row) {
+                if (row.style.display === 'none') {
+                    return;
+                }
+
+                var checkbox = row.querySelector('.asset-select-row');
+                if (checkbox) {
+                    checkbox.checked = selectAll.checked;
+                }
             });
         });
     }

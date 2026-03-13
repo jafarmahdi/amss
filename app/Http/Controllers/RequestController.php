@@ -220,6 +220,7 @@ class RequestController extends Controller
             'canAdvanceRequest' => RequestWorkflow::canAdvance($request, auth_user()),
             'canFulfillRequest' => RequestWorkflow::canFulfillFromStorage($request, auth_user()),
             'canFullyFulfillRequest' => RequestWorkflow::canFullyFulfillFromStorage($request),
+            'storageFulfillmentStatus' => RequestWorkflow::storageFulfillmentStatus(),
             'advanceOptions' => RequestWorkflow::advanceOptions(),
             'storageAssetOptions' => RequestWorkflow::storageAssetOptions($request),
             'sparePartOptions' => RequestWorkflow::sparePartOptions($request),
@@ -383,6 +384,7 @@ class RequestController extends Controller
 
     private function renderForm(?array $request): void
     {
+        $workflowDefaults = RequestWorkflow::configuration();
         $requestItems = $request !== null ? RequestWorkflow::requestItems((int) $request['id']) : [[
             'item_type' => 'asset',
             'item_name' => '',
@@ -411,6 +413,7 @@ class RequestController extends Controller
             'fulfillmentPreferences' => RequestWorkflow::fulfillmentPreferenceLabels(),
             'assignmentTargets' => RequestWorkflow::assignmentTargetLabels(),
             'urgencies' => ['low', 'normal', 'high', 'critical'],
+            'workflowDefaults' => $workflowDefaults,
         ]);
     }
 

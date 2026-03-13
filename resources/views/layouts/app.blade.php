@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <?php if (is_file(base_path('favicon.ico'))): ?>
+      <link rel="icon" href="<?= e(base_url()) ?>/favicon.ico">
+    <?php endif; ?>
     <style>
       :root {
         --app-bg: #eef2f6;
@@ -71,9 +74,24 @@
           var(--app-bg);
       }
 
+      body.sidebar-open {
+        overflow: hidden;
+      }
+
       a {
         color: inherit;
         text-decoration: none;
+      }
+
+      a:focus-visible,
+      button:focus-visible,
+      .btn:focus-visible,
+      .surface-chip:focus-visible,
+      .form-control:focus-visible,
+      .form-select:focus-visible,
+      .form-check-input:focus-visible {
+        outline: 3px solid rgba(15, 98, 254, 0.28);
+        outline-offset: 3px;
       }
 
       .app-shell {
@@ -146,10 +164,13 @@
         position: sticky;
         top: 20px;
         min-height: calc(100vh - 40px);
+        max-height: calc(100vh - 40px);
         border-radius: 32px;
         padding: 24px 18px;
         background: var(--app-sidebar);
         color: var(--app-sidebar-text);
+        overflow-y: auto;
+        overscroll-behavior: contain;
       }
 
       .app-brand {
@@ -179,6 +200,31 @@
 
       .app-content {
         min-width: 0;
+      }
+
+      .app-sidebar-header-mobile,
+      .app-sidebar-toggle,
+      .app-sidebar-backdrop {
+        display: none;
+      }
+
+      .app-nav-link {
+        transition: background-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+      }
+
+      .app-nav-link:hover {
+        background: rgba(255, 255, 255, 0.12) !important;
+        color: var(--app-sidebar-text) !important;
+      }
+
+      .app-nav-link.is-active {
+        background: rgba(255, 255, 255, 0.98) !important;
+        color: #0f172a !important;
+        box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.06);
+      }
+
+      .app-nav-link.is-child {
+        margin-inline-start: 1.5rem;
       }
 
       .app-topbar {
@@ -538,12 +584,102 @@
         }
 
         .app-sidebar {
-          position: static;
-          min-height: auto;
+          position: fixed;
+          top: 0;
+          inset-inline-start: 0;
+          width: min(86vw, 320px);
+          min-height: 100dvh;
+          height: 100dvh;
+          border-radius: 0 28px 28px 0;
+          overflow-y: auto;
+          transform: translateX(calc(-100% - 24px));
+          opacity: 0;
+          visibility: hidden;
+          z-index: 1105;
+          transition: transform 0.24s ease, opacity 0.24s ease, visibility 0.24s ease;
+        }
+
+        html[dir="rtl"] .app-sidebar {
+          inset-inline-start: auto;
+          inset-inline-end: 0;
+          border-radius: 28px 0 0 28px;
+          transform: translateX(calc(100% + 24px));
+        }
+
+        .app-frame.sidebar-open .app-sidebar {
+          transform: translateX(0);
+          opacity: 1;
+          visibility: visible;
+        }
+
+        .app-sidebar-header-mobile {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 12px;
+          margin: -4px 0 16px;
+          padding-bottom: 16px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .app-sidebar-toggle {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          min-width: 48px;
+          min-height: 48px;
+          border-radius: 16px;
+          border: 1px solid var(--app-border);
+          background: var(--app-surface-muted);
+          color: var(--app-text);
+          font-weight: 700;
+        }
+
+        .app-sidebar-backdrop {
+          display: block;
+          position: fixed;
+          inset: 0;
+          background: rgba(2, 6, 23, 0.42);
+          opacity: 0;
+          visibility: hidden;
+          z-index: 1100;
+          transition: opacity 0.24s ease, visibility 0.24s ease;
+        }
+
+        .app-frame.sidebar-open .app-sidebar-backdrop {
+          opacity: 1;
+          visibility: visible;
         }
 
         .app-main-panel {
           padding: 16px;
+        }
+
+        .app-toolbar-title {
+          width: 100%;
+        }
+
+        .app-toolbar-actions {
+          width: 100%;
+          justify-content: flex-start;
+        }
+
+        .app-auth-card {
+          order: 1;
+        }
+
+        .app-auth-panel {
+          order: 2;
+          padding: 28px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .app-sidebar,
+        .app-sidebar-backdrop,
+        .app-nav-link {
+          transition: none !important;
         }
       }
 
@@ -588,37 +724,67 @@
     </style>
 </head>
 <body data-theme="<?= e($currentTheme) ?>">
-<?php if ($currentRoute === 'login'): ?>
+<?php if ($currentRoute === 'login' || str_starts_with((string) $currentRoute, 'install')): ?>
   <div class="app-login-shell">
     <div class="app-login-wrap">
       <section class="app-auth-panel">
-        <div class="badge-soft mb-4"><i class="bi bi-shield-check"></i> <?= e(__('layout.control_center', 'Asset Control Center')) ?></div>
-        <h1 class="display-6 fw-bold mb-3"><?= e(__('app.name', 'Asset Management')) ?></h1>
-        <p class="mb-4" style="max-width: 36rem; color: rgba(248, 250, 252, 0.85);">
-          <?= e(__('layout.login_desc', 'Monitor procurement, assignment, branch movement, and warranty follow-up from one clean workspace built for daily operations.')) ?>
-        </p>
-        <div class="row g-3">
-          <div class="col-sm-6">
-              <div class="surface-chip" style="background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.16); color: #fff;">
-              <i class="bi bi-hdd-network"></i> <?= e(__('layout.login_chip_assignments', 'Branch-aware assignments')) ?>
-              </div>
+        <?php if (str_starts_with((string) $currentRoute, 'install')): ?>
+          <div class="badge-soft mb-4"><i class="bi bi-box-seam"></i> <?= e(__('install.badge', 'Initial setup wizard')) ?></div>
+          <h1 class="display-6 fw-bold mb-3"><?= e(__('install.panel_title', 'Deploy the system cleanly from one screen')) ?></h1>
+          <p class="mb-4" style="max-width: 36rem; color: rgba(248, 250, 252, 0.85);">
+            <?= e(__('install.panel_desc', 'Configure application identity, language, database access, branding, and the first administrator account before the team starts using the platform.')) ?>
+          </p>
+          <div class="row g-3">
+            <div class="col-sm-6">
+                <div class="surface-chip" style="background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.16); color: #fff;">
+                <i class="bi bi-database-check"></i> <?= e(__('install.panel_chip_database', 'Database provisioning')) ?>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="surface-chip" style="background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.16); color: #fff;">
+                <i class="bi bi-translate"></i> <?= e(__('install.panel_chip_language', 'Language and defaults')) ?>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="surface-chip" style="background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.16); color: #fff;">
+                <i class="bi bi-shield-lock"></i> <?= e(__('install.panel_chip_admin', 'First administrator')) ?>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="surface-chip" style="background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.16); color: #fff;">
+                <i class="bi bi-image"></i> <?= e(__('install.panel_chip_branding', 'Logo and favicon')) ?>
+                </div>
+            </div>
           </div>
-          <div class="col-sm-6">
-              <div class="surface-chip" style="background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.16); color: #fff;">
-              <i class="bi bi-file-earmark-text"></i> <?= e(__('layout.login_chip_documents', 'Documents and warranty tracking')) ?>
-              </div>
+        <?php else: ?>
+          <div class="badge-soft mb-4"><i class="bi bi-shield-check"></i> <?= e(__('layout.control_center', 'Asset Control Center')) ?></div>
+          <h1 class="display-6 fw-bold mb-3"><?= e(__('app.name', 'Asset Management')) ?></h1>
+          <p class="mb-4" style="max-width: 36rem; color: rgba(248, 250, 252, 0.85);">
+            <?= e(__('layout.login_desc', 'Monitor procurement, assignment, branch movement, and warranty follow-up from one clean workspace built for daily operations.')) ?>
+          </p>
+          <div class="row g-3">
+            <div class="col-sm-6">
+                <div class="surface-chip" style="background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.16); color: #fff;">
+                <i class="bi bi-hdd-network"></i> <?= e(__('layout.login_chip_assignments', 'Branch-aware assignments')) ?>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="surface-chip" style="background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.16); color: #fff;">
+                <i class="bi bi-file-earmark-text"></i> <?= e(__('layout.login_chip_documents', 'Documents and warranty tracking')) ?>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="surface-chip" style="background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.16); color: #fff;">
+                <i class="bi bi-people"></i> <?= e(__('layout.login_chip_people', 'Employee and branch visibility')) ?>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="surface-chip" style="background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.16); color: #fff;">
+                <i class="bi bi-bar-chart"></i> <?= e(__('layout.login_chip_dashboard', 'Operations dashboard')) ?>
+                </div>
+            </div>
           </div>
-          <div class="col-sm-6">
-              <div class="surface-chip" style="background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.16); color: #fff;">
-              <i class="bi bi-people"></i> <?= e(__('layout.login_chip_people', 'Employee and branch visibility')) ?>
-              </div>
-          </div>
-          <div class="col-sm-6">
-              <div class="surface-chip" style="background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.16); color: #fff;">
-              <i class="bi bi-bar-chart"></i> <?= e(__('layout.login_chip_dashboard', 'Operations dashboard')) ?>
-              </div>
-          </div>
-        </div>
+        <?php endif; ?>
       </section>
       <main class="app-auth-card">
         <?php if ($flashStatus !== null): ?>
@@ -634,20 +800,34 @@
 <?php else: ?>
   <div class="app-shell">
     <div class="app-frame">
-      <aside class="app-sidebar">
+      <aside class="app-sidebar" id="app-sidebar">
+        <div class="app-sidebar-header-mobile">
+          <div class="fw-semibold"><?= e(__('layout.open_navigation', 'Navigation')) ?></div>
+          <button type="button" class="app-sidebar-toggle" data-sidebar-close aria-label="<?= e(__('layout.close_navigation', 'Close navigation')) ?>">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
         <?php require base_path('resources/views/layouts/sidebar.blade.php'); ?>
       </aside>
+      <div class="app-sidebar-backdrop" data-sidebar-close></div>
       <div class="app-content">
         <header class="app-topbar">
           <div class="app-toolbar">
-            <div>
-              <div class="badge-soft mb-2"><i class="bi bi-grid-1x2"></i> <?= e(__('layout.workspace_badge', 'Operations workspace')) ?></div>
-              <h2 class="h4 mb-1"><?= e($pageTitle) ?></h2>
-              <p class="text-muted mb-0"><?= e($currentUser['name'] ?? '') ?></p>
+            <div class="d-flex align-items-start gap-3 app-toolbar-title">
+              <?php if ($currentUser !== null): ?>
+                <button type="button" class="app-sidebar-toggle" data-sidebar-toggle aria-controls="app-sidebar" aria-expanded="false" aria-label="<?= e(__('layout.open_navigation', 'Open navigation')) ?>">
+                  <i class="bi bi-list"></i>
+                </button>
+              <?php endif; ?>
+              <div>
+                <div class="badge-soft mb-2"><i class="bi bi-grid-1x2"></i> <?= e(__('layout.workspace_badge', 'Operations workspace')) ?></div>
+                <h2 class="h4 mb-1"><?= e($pageTitle) ?></h2>
+                <p class="text-muted mb-0"><?= e($currentUser['name'] ?? '') ?></p>
+              </div>
             </div>
             <div class="app-toolbar-actions">
-              <a class="surface-chip" href="<?= e(route('locale.switch', ['locale' => 'en'])) ?>"><?= e(__('lang.en', 'English')) ?></a>
-              <a class="surface-chip" href="<?= e(route('locale.switch', ['locale' => 'ar'])) ?>"><?= e(__('lang.ar', 'Arabic')) ?></a>
+              <a class="surface-chip" href="<?= e(route('locale.switch', ['locale' => 'en']) . '&redirect=' . rawurlencode($currentRequestUri)) ?>"><?= e(__('lang.en', 'English')) ?></a>
+              <a class="surface-chip" href="<?= e(route('locale.switch', ['locale' => 'ar']) . '&redirect=' . rawurlencode($currentRequestUri)) ?>"><?= e(__('lang.ar', 'Arabic')) ?></a>
               <?php if ($currentUser !== null): ?>
                 <div class="dropdown">
                   <button class="surface-chip notification-trigger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -685,6 +865,7 @@
                   </div>
                 </div>
                 <form method="POST" action="<?= e(route('theme.toggle')) ?>" class="d-inline">
+                  <input type="hidden" name="redirect" value="<?= e($currentRequestUri) ?>">
                   <button type="submit" class="surface-chip" style="cursor:pointer;">
                     <i class="bi bi-circle-half"></i>
                     <?= e(__('theme.toggle', 'Theme')) ?>: <?= e($currentTheme === 'dark' ? __('theme.dark', 'Dark') : __('theme.light', 'Light')) ?>
@@ -711,5 +892,58 @@
   </div>
 <?php endif; ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var frame = document.querySelector('.app-frame');
+  var sidebar = document.querySelector('.app-sidebar');
+  var toggleButtons = document.querySelectorAll('[data-sidebar-toggle]');
+  var closeButtons = document.querySelectorAll('[data-sidebar-close]');
+
+  if (!frame || !sidebar || toggleButtons.length === 0) {
+    return;
+  }
+
+  function setSidebarState(open) {
+    frame.classList.toggle('sidebar-open', open);
+    document.body.classList.toggle('sidebar-open', open);
+
+    toggleButtons.forEach(function (button) {
+      button.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+
+  toggleButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      setSidebarState(!frame.classList.contains('sidebar-open'));
+    });
+  });
+
+  closeButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      setSidebarState(false);
+    });
+  });
+
+  sidebar.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      if (window.innerWidth < 992) {
+        setSidebarState(false);
+      }
+    });
+  });
+
+  window.addEventListener('resize', function () {
+    if (window.innerWidth >= 992) {
+      setSidebarState(false);
+    }
+  });
+
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && frame.classList.contains('sidebar-open')) {
+      setSidebarState(false);
+    }
+  });
+});
+</script>
 </body>
 </html>
